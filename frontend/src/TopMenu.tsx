@@ -21,7 +21,7 @@ const MenuButton = styled(Button)<{ active?: boolean }>(
     color: active ? theme.palette.common.black : theme.palette.common.white,
     ":hover": {
       backgroundColor: theme.palette.common.white,
-      color: theme.palette.common.black,
+      color: theme.palette.secondary.main,
     },
   })
 );
