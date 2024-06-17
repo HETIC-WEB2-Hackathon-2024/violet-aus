@@ -1,52 +1,24 @@
-import styled from "@emotion/styled";
-import { Box, CssBaseline, Toolbar } from "@mui/material";
+// import styled from "@emotion/styled";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-import { TopMenu } from "./TopMenu";
-import { Dashboard } from "./dashboard/Dashboard";
-import { AppTheme } from "./Theme";
+import "./index.css";
+import Header from "./components/Header.tsx"
+import Footer from "./components/Footer.tsx"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "offres",
-        element: <Box>Offres</Box>,
-      },
-      {
-        path: "parametres",
-        element: <Box>Paramètres</Box>,
-      },
-      {
-        path: "selection",
-        element: <Box>Ma sélection</Box>,
-      },
     ],
   },
 ]);
-const MainBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
 
 function Layout() {
   return (
-    <AppTheme>
-      <MainBox>
-        <CssBaseline />
-        <TopMenu />
-        <Box component="main">
-          <Toolbar />
-          <Outlet />
-        </Box>
-      </MainBox>
-    </AppTheme>
+    <>
+        <Header />
+        <Footer />
+    </>
   );
 }
 
