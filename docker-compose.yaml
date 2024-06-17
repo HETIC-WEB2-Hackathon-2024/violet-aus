@@ -1,0 +1,19 @@
+services:
+  web-service:
+    image: "aus-web-service"
+    build:
+      context: ./web-service
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web-service:/app
+  frontend:
+    image: "aus-frontend"
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/code
+    depends_on:
+      - web-service

@@ -6,8 +6,10 @@ COPY package-lock.json /app
 
 RUN npm ci
 
-COPY . /app
+COPY . .
 
 RUN npm run build
+
+EXPOSE 3000
 
 CMD ["npm", "run", "serve"]
