@@ -1,5 +1,5 @@
 // import styled from "@emotion/styled";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import Header from "./components/Header.tsx"
 import Footer from "./components/Footer.tsx"
