@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Authenticated } from "./auth/Authenticated.tsx";
+import { ThemeProvider } from "@material-tailwind/react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       }}
     >
       <Authenticated>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </Authenticated>
     </Auth0Provider>
   </React.StrictMode>
