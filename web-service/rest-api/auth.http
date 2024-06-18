@@ -1,15 +1,4 @@
 
-@authHost = adopte-un-stagiaire.eu.auth0.com
-@client_id = VMVLMrjVvRotqVIGi5LZvSb9XyUySc7N
-@client_secret = ICm2Tr7Nk5joR6uYw2dc0_dK4nAwBffxb_mds9lzZyzAWsCjIW2u2mWgimdxPzFs
-@audience = api.aus.floless.fr
-
-// localhost  
-@protocol = http
-@host = localhost
-@portBack = 3000
-
-
 ### 
 # @name auth
 POST  https://{{authHost}}/oauth/token
