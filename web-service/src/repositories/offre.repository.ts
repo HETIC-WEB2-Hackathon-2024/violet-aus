@@ -1,4 +1,4 @@
-import Offre from '../entities/offre.entity';
+// import Offre from '../entities/offre.entity';
 import HelperRepository from './helper.repository';
 import { query } from '../config/database';
 
