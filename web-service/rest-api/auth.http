@@ -1,0 +1,37 @@
+
+@authHost = adopte-un-stagiaire.eu.auth0.com
+@client_id = VMVLMrjVvRotqVIGi5LZvSb9XyUySc7N
+@client_secret = ICm2Tr7Nk5joR6uYw2dc0_dK4nAwBffxb_mds9lzZyzAWsCjIW2u2mWgimdxPzFs
+@audience = api.aus.floless.fr
+
+// localhost  
+@protocol = http
+@host = localhost
+@portBack = 3000
+
+
+### 
+# @name auth
+POST  https://{{authHost}}/oauth/token
+Content-Type: application/json
+
+{
+  "client_id": "{{client_id}}",
+  "client_secret": "{{client_secret}}",
+  "audience": "{{audience}}",
+  "grant_type": "client_credentials"
+}
+
+###
+@JWT = {{auth.response.body.access_token}}
+
+###
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/1
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+
+###
+GET {{protocol}}://{{host}}:{{portBack}}/api/public/offre/1
+Content-Type: application/json
+authorization: Bearer {{JWT}}
