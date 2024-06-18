@@ -17,7 +17,7 @@ process.on("exit", function () {
  * @param sqlStatement a string containing the SQL statement
  * @returns an array of rows
  */
-async function query(sqlStatement: string): Promise<any[]> {
+export async function query(sqlStatement: string): Promise<any[]> {
   let rows = [];
   const client = await pool.connect();
   const response = await client.query(sqlStatement);
