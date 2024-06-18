@@ -1,24 +1,48 @@
-// import styled from "@emotion/styled";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import "./index.css";
-import Header from "./components/Header.tsx"
-import Footer from "./components/Footer.tsx"
+import Header from "./components/Header.tsx";
+import Footer from "./components/Footer.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
+      // {
+      //   path: "Dashboard",
+      //   element: <Dashboard />,
+      // },
+      // {
+      //   path: "Offres",
+      //   element: <Offres />,
+      // },
+      // {
+      //   path: "Selection",
+      //   element: <Selection />,
+      // },
+      // {
+      //   path: "Parametres",
+      //   element: <Parametres />,
+      // },
+      // {
+      //   path: "Connexion",
+      //   element: <Connexion />,
+      // },
     ],
   },
 ]);
 
 function Layout() {
   return (
-    <>
-        <Header />
+    <div className="flex h-screen">
+      <Header />
+      <div className="flex flex-col flex-1">
+        <main className="flex-1 p-4">
+          <Outlet />
+        </main>
         <Footer />
-    </>
+      </div>
+    </div>
   );
 }
 
