@@ -3,19 +3,19 @@ services:
     image: "aus-web-service"
     build:
       context: ./web-service
-      dockerfile: ./Dockerfile.dev
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     volumes:
-      - ./web-service:/app
+      - ./web-service:/web-service
+
   frontend:
     image: "aus-frontend"
     build:
       context: ./frontend
-      dockerfile: ./Dockerfile.dev
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/code
+      - ./frontend:/frontend
     depends_on:
       - web-service
