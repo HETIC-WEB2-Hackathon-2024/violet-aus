@@ -3,6 +3,7 @@ services:
     image: "aus-web-service"
     build:
       context: ./web-service
+      dockerfile: ./Dockerfile.dev
     ports:
       - "3000:3000"
     volumes:
