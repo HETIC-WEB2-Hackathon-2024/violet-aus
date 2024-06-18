@@ -3,8 +3,9 @@ import {
   Card,
   Typography,
   List,
-  ListItem,
   ListItemPrefix,
+  Button,
+  IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
@@ -39,7 +40,7 @@ export default function Header() {
     <Card
       className={` ${
         sidenavOpen ? "w-72" : "w-20 "
-      } relative duration-300 h-100vh p-1 shadow-xl bg-primary-base rounded-none`}
+      } relative duration-100 h-100vh p-1 shadow-xl bg-primary-base rounded-none`}
     >
       <Link to="/">
         <ListItemPrefix className="text-secondary-light">
@@ -81,15 +82,50 @@ export default function Header() {
         </div>
       </Link>
       <hr className=" border-primary-dark" />
+      { sidenavOpen ?
       <List>
-        {Menus.map((menu, index) => (
-          <Link key={index} to={menu.link}>
-            <ListItem
-              className={` ${
-                sidenavOpen ? "w-70" : "w-12"
-              } relative duration-300 hover:bg-primary-dark focus:bg-primary-light`}
+      {Menus.map((menu, index) => (
+        <Link key={index} to={menu.link}>
+          <Button
+            className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
+          >
+            <ListItemPrefix className="text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d={icons[menu.icon]}
+                />
+              </svg>
+            </ListItemPrefix>
+            <Typography
+              variant="h5"
+              color="white"
+              className={`${
+                !sidenavOpen && "hidden"
+              } origin-left duration-200 ml-2`}
             >
-              <ListItemPrefix className="text-white">
+              {menu.title}
+            </Typography>
+          </Button>
+        </Link>
+      ))}
+    </List>
+      : 
+      <List>
+      {Menus.map((menu, index) => (
+          <IconButton
+            className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2"
+          >
+            <Link key={index} to={menu.link}>
+              <ListItemPrefix className="text-white mr-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -105,19 +141,12 @@ export default function Header() {
                   />
                 </svg>
               </ListItemPrefix>
-              <Typography
-                variant="h5"
-                color="white"
-                className={`${
-                  !sidenavOpen && "hidden"
-                } origin-left duration-200 ml-2`}
-              >
-                {menu.title}
-              </Typography>
-            </ListItem>
-          </Link>
-        ))}
-      </List>
+              </Link>
+          </IconButton>
+      ))}
+    </List>
+      }
+    
     </Card>
   );
 }
