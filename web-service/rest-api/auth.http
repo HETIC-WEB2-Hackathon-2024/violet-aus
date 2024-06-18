@@ -14,8 +14,28 @@ Content-Type: application/json
 ###
 @JWT = {{auth.response.body.access_token}}
 
+
+### API ### 
+
+### PRIVATE ###
+
+### Offre 
+
 ###
-GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/1
+# @name getOffreById
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/2
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name getAllOffre
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name createOffre
+POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
