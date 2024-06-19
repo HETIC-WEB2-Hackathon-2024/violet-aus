@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Card,
   Typography,
@@ -8,16 +8,23 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
   const [sidenavOpen, setSideNavOpen] = useState(true);
   const [theme, setTheme] = useState("light");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { logout } = useAuth0();
 
-   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme  === "dark");
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
+    if (!isLoggedIn) {
+      logout({ logoutParams: { returnTo: window.location.origin } });
+    }
   };
 
   const icons: { [key: string]: string } = {
@@ -64,26 +71,32 @@ export default function Header() {
       isThemeToggle: true,
     },
     { title: "Paramètres", icon: "Params", link: "/parametres", top: false },
-    { title: "Connexion", icon: "Connexion", link: "/connexion", top: false },
+    {
+      title: isLoggedIn ? "Connexion" : "Deconnexion",
+      icon: "Connexion",
+      link: "",
+      top: false,
+      isLogin: true,
+    },
   ];
 
   return (
     <Card
       className={` ${
         sidenavOpen ? "w-72" : "w-20 "
-      } relative duration-100 h-100vh p-1 shadow-xl bg-primary-base_white dark:bg-primary-base_dark rounded-none`}
+      } relative duration-100 h-100vh p-1 shadow-xl bg-primary-base rounded-none`}
     >
       <div className="flex flex-col items-center gap-2 p-4">
         <img
           src={sidenavOpen ? "/logo_open_state.svg" : "/logo_close_state.svg"}
-          className={`duration-500 ${
+          className={`cursor-pointer duration-500 ${
             sidenavOpen && "rotate-[360deg]"
           }`}
           alt="Logo"
         />
       </div>
 
-      <hr className=" border-primary-dark_white dark:border-primary-dark_dark   " />
+      <hr className=" border-primary-dark" />
       {sidenavOpen ? (
         <div className="flex flex-col justify-between h-full">
           <List>
@@ -98,7 +111,7 @@ export default function Header() {
                   }
                 }}
               >
-                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark">
+                <Button className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
                   <ListItemPrefix className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -137,10 +150,13 @@ export default function Header() {
                   if (menu.isThemeToggle) {
                     e.preventDefault();
                     toggleTheme();
+                  } else if (menu.isLogin) {
+                    e.preventDefault();
+                    toggleLogin();
                   }
                 }}
               >
-                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark">
+                <Button className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
                   <ListItemPrefix className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +201,7 @@ export default function Header() {
                   }
                 }}
               >
-                <IconButton className="flex items-center w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark ml-2">
+                <IconButton className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2 shadow-none">
                   <ListItemPrefix className="text-white mr-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -215,10 +231,13 @@ export default function Header() {
                   if (menu.isThemeToggle) {
                     e.preventDefault();
                     toggleTheme();
+                  } else if (menu.isLogin) {
+                    e.preventDefault();
+                    toggleLogin();
                   }
                 }}
               >
-                <IconButton className="flex items-center w-full  bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark ml-2">
+                <IconButton className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2 shadow-none">
                   <ListItemPrefix className="text-white mr-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
