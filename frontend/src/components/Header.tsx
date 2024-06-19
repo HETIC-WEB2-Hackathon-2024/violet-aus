@@ -59,12 +59,17 @@ export default function Header() {
       </ListItemPrefix>
 
       <div className="flex flex-col items-center gap-2 p-4">
-        <img
-          src="/logo-aus.svg"
-          className={`cursor-pointer duration-500 ${
-            sidenavOpen && "rotate-[360deg]"
-          }`}
-        />
+         <img
+            src={
+              sidenavOpen
+                ? "/logo_open_state.svg"
+                : "/logo_close_state.svg"
+            }
+            className={`cursor-pointer duration-500 ${
+              sidenavOpen && "rotate-[360deg]"
+            }`}
+            alt="Logo"
+          />
       </div>
 
       <hr className=" border-primary-dark" />
