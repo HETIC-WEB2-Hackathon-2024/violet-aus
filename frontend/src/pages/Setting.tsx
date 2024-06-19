@@ -22,22 +22,11 @@ function Settings() {
     async function callApi() {
       try {
         const token = await getAccessTokenSilently();
-        const email = "candidat30@aus.floless.fr";
-        // if (!email) {
-        //   throw new Error("User email is not available");
-        // }
-        const response = await authenticatedPost(
-          token,
-          "api/private/settings",
-          {
-            email,
-          }
-        );
-        // const response = await authenticatedGet(token, "api/private/settings");
+        const response = await authenticatedGet(token, "api/private/settings");
 
-        setData(response.message);
+        setData(response.user);
 
-        const dateObj = new Date(response.message[0].date_naissance);
+        const dateObj = new Date(response.user.date_naissance);
         if (!isNaN(dateObj.getTime())) {
           const formattedDate = dateObj.toISOString().split("T")[0];
           setDateOfBirth(formattedDate);
@@ -66,80 +55,78 @@ function Settings() {
   ) => {
     setDateOfBirth(event.target.value);
   };
-
+  console.log(data);
   return (
     <div>
       <h1 className="text-h1 text-center m-2">Paramètres</h1>
-      {/* <p>Utilisateur : {user?.email}</p> */}
-      {data?.map((profil: any) => (
-        <form key={profil.id} className="flex gap-4 flex-col">
-          <div>
-            <p>Test e-mail candidat : candidat30@aus.floless.fr</p>
-          </div>
-          <div>
-            <label htmlFor="lastname">Nom</label>
-            <input
-              id="lastname"
-              name="lastname"
-              type="text"
-              className="border-2"
-              value={profil.nom}
-              onChange={handleDateOfBirthChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="firstname">Prénom</label>
-            <input
-              id="firstname"
-              name="firstname"
-              type="text"
-              className="border-2"
-              value={profil.prenom}
-              onChange={handleDateOfBirthChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="telephone">Téléphone</label>
-            <input
-              id="telephone"
-              name="telephone"
-              type="text"
-              className="border-2"
-              value={profil.telephone}
-              onChange={handleDateOfBirthChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="country">Pays</label>
-            <input
-              id="country"
-              name="country"
-              type="text"
-              className="border-2"
-              value={profil.pays}
-              onChange={handleDateOfBirthChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="birthday">Date de naissance</label>
-            <input
-              id="birthday"
-              name="birthday"
-              type="date"
-              className="border-2"
-              value={dateOfBirth || ""}
-              onChange={handleDateOfBirthChange}
-            />
-          </div>
-          <div className="w-fit">
-            <input
-              className="p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
-              type="submit"
-              value="Modifier"
-            />
-          </div>
-        </form>
-      ))}
+      <p>Utilisateur : {data?.nom}</p>
+      <form className="flex gap-4 flex-col">
+        <div>
+          <p>Test e-mail candidat : candidat30@aus.floless.fr</p>
+        </div>
+        <div>
+          <label htmlFor="lastname">Nom</label>
+          <input
+            id="lastname"
+            name="lastname"
+            type="text"
+            className="border-2"
+            value={data?.nom}
+            onChange={handleDateOfBirthChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="firstname">Prénom</label>
+          <input
+            id="firstname"
+            name="firstname"
+            type="text"
+            className="border-2"
+            value={data?.prenom}
+            onChange={handleDateOfBirthChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="telephone">Téléphone</label>
+          <input
+            id="telephone"
+            name="telephone"
+            type="text"
+            className="border-2"
+            value={data?.telephone}
+            onChange={handleDateOfBirthChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="country">Pays</label>
+          <input
+            id="country"
+            name="country"
+            type="text"
+            className="border-2"
+            value={data?.pays}
+            onChange={handleDateOfBirthChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="birthday">Date de naissance</label>
+          <input
+            id="birthday"
+            name="birthday"
+            type="date"
+            className="border-2"
+            value={dateOfBirth || ""}
+            onChange={handleDateOfBirthChange}
+          />
+        </div>
+        <div className="w-fit">
+          <input
+            className="p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
+            type="submit"
+            value="Modifier"
+          />
+        </div>
+      </form>
     </div>
   );
 }

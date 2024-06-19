@@ -13,22 +13,14 @@ export const getProfilInformations = async (req: Request, res: Response) => {
       }
     );
 
-    console.log(userinfoResponse);
-
     const userinfo = await userinfoResponse.json();
 
-    console.log(userinfo);
-    // const { email } = req.body;
-    // const profilInfo = await CandidatRepository.getCandidatByEmail(email);
-    // if (!email) {
-    //   res.status(400).send({ error: "E-mail is required" });
-    //   return;
-    // }
+    console.log(userinfo.email);
+    const profilInfo = await CandidatRepository.getCandidatByEmail(
+      userinfo.email
+    );
 
-    // const profilInfo = await getProfilInfo(email);
-    // res.send(profilInfo);
-    res.status(200).json({ message: 1 });
-    // res.status(200).json({ data : profilInfo });
+    res.status(200).json({ message: "Ok", user: profilInfo.rows[0] });
   } catch (error) {
     console.error("Error in getSettings:", error);
     res.status(500).send({ error: "Internal Server Error", reason: error });
