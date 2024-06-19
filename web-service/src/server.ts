@@ -1,10 +1,10 @@
+import express, { Request, Response } from "express";
+import { auth } from "express-oauth2-jwt-bearer";
 import cors from "cors";
-import express, {Request, Response} from 'express';
-
-import publicRoutes from './routes/index.public.route'
-import privateRoutes from './routes/index.private.route'
-import errorHandler from './middlewares/error.middleware';
-import authMiddleware from './middlewares/auth.middleware';
+import privateRoutes from "./routes/index.private.route";
+import publicRoutes from "./routes/index.public.route";
+import errorHandler from "./middlewares/error.middleware";
+import authMiddleware from "./middlewares/auth.middleware";
 
 const port = 3000;
 const app = express();
@@ -15,8 +15,17 @@ app.use(cors());
 app.use(express.json());
 app.use(errorHandler);
 
-app.use('/api/public', publicRoutes);
-app.use('/api/private', authMiddleware, privateRoutes);
+app.use("/api/public", publicRoutes);
+
+// const jwtCheck = auth({
+//   audience: "api.aus.floless.fr",
+//   issuerBaseURL: "https://adopte-un-stagiaire.eu.auth0.com/",
+//   tokenSigningAlg: "RS256",
+// });
+// // enforce that all incoming requests are authenticated
+// app.use(jwtCheck);
+
+app.use("/api/private", authMiddleware, privateRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.status(400).json({ message: "Bad Request" });
@@ -25,5 +34,3 @@ app.get("*", (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
-
-
