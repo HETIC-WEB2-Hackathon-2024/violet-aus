@@ -21,9 +21,9 @@ interface Option {
 
 export default class HelperRepository {
   private entity: string;
-  private fKey: {key:string, reference: string}[];
+  private fKey: {key:string, reference: string, columns: string[]}[];
 
-  constructor(entity: string, fKey: {key:string, reference: string}[]) {
+  constructor(entity: string, fKey: {key:string, reference: string , columns: string[]}[]) {
     this.entity = entity;
     this.fKey = fKey;
   }
@@ -34,19 +34,20 @@ export default class HelperRepository {
     return result;
   }
 
-//   async findByIdExtend(id: number): Promise<any> {
+  // async findByIdExtend(id: number): Promise<any> {
     
-//     const join = this.fKey.map((foreignKey) => `LEFT JOIN ${foreignKey.reference} ON ${foreignKey.reference}.id = ${this.entity}.${foreignKey.key}')' `).join(' ')
-//     let values = ''
-//     this.fKey.map((foreignKey) => {
-//       values += `, JSON_BUILD_OBJECT(*) AS ${foreignKey.reference}`
-//     })
-
-//     const join = this.fKey.map((foreignKey) => 
-//       `LEFT JOIN ${foreignKey.reference} ON ${foreignKey.reference}.id = ${this.entity}.${foreignKey.key}`).join(' ');
+  //   const join = this.fKey.map((foreignKey) => `LEFT JOIN ${foreignKey.reference} ON ${foreignKey.reference}.id = ${this.entity}.${foreignKey.key}')' `).join(' ')
   
-//     // Build the JSON_BUILD_OBJECT statements dynamically
-//     const jsonFields = this.fKey.map((foreignKey) => 
+    // this.fKey.map((foreignKey) => {
+    //   values += `, JSON_BUILD_OBJECT(*) AS ${foreignKey.reference}`
+    // })
+
+//     const values = this.fKey.map((foreignKey) => {
+//       foreignKey.map((column)=>{ `${foreignKey.reference}
+
+//       })
+
+//     }
 //       `, JSON_BUILD_OBJECT(${foreignKey.reference}.id, ${foreignKey.reference}.id, ${foreignKey.reference}.name, ${foreignKey.reference}.name) AS ${foreignKey.reference}`).join(' ');
   
     

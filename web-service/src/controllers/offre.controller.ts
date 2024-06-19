@@ -52,7 +52,7 @@ export  const create = async (req: Request, res: Response) => {
   }
 };
 
-export const daleteById = async (req: Request, res: Response) => {
+export const deleteById = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
 
@@ -83,16 +83,16 @@ export const updateById = async (req: Request, res: Response) => {
   }
 };
 
-export const getByIdExtend = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
+// export const getByIdExtend = async (req: Request, res: Response) => {
+//   try {
+//     const id = parseInt(req.params.id, 10);
 
-    const result = await offreRepository.findByIdExtend(id);
-    const offre: Offre = new Offre(result.rows[0])
+//     const result = await offreRepository.findByIdExtend(id);
+//     const offre: Offre = new Offre(result.rows[0])
 
-    res.status(200).json({ message: 'Offre retrieved successfully', offre: offre });
+//     res.status(200).json({ message: 'Offre retrieved successfully', offre: offre });
   
-  } catch (error: any) {
-    res.status(500).json({ message: 'Internal Server Error', error: error.message });
-  }
-};
+//   } catch (error: any) {
+//     res.status(500).json({ message: 'Internal Server Error', error: error.message });
+//   }
+// };
