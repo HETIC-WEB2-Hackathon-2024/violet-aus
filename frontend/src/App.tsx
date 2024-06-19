@@ -1,3 +1,4 @@
+// import styled from "@emotion/styled";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 
 import "./index.css";
@@ -8,6 +9,7 @@ import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Settings from "./pages/Setting.tsx";
 import { Authenticated } from "./auth/Authenticated";
+import OffersPage from "./pages/OffersPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +59,7 @@ if (path === "/manager" || path === "/manager/") {
 
 function Layout() {
   return (
-    <div className="flex h-screen">
+    <>
       <Header />
       <div className="flex flex-col flex-1">
         <main className="flex-1 p-4 bg-gray-lightest dark:bg-gray-base">
