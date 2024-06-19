@@ -6,24 +6,28 @@ export default withMT({
   theme: {
     colors: {
       primary: {
-        light: '#a770c1',
-        base: '#9554b3',
-        dark: '#843da5',
+        light_white: '#a392b9',
+        base_white: '#81689D',
+        dark_white: '#684a8a',
+        light_dark: '#81689d',
+        base_dark: '#684a8a',
+        dark_dark: '#522c7c',
       },
       secondary: {
-        light: '#80c35d',
-        base: '#72b354',
-        dark: '#5f9f49',
+        light_white: '#f8de8c',
+        base_white: '#f4d677',
+        dark_white: '#f1d066',
+        light_dark: '#caaa59',
+        base_dark: '#b39554',
+        dark_dark: '#8b724c',
       },
       gray: {
-        darkest: '#1f2d3d',
-        dark: '#3c4858',
-        base: '#c0ccda',
-        light: '#e0e6ed',
-        lightest: '#f9fafc',
+        darkest: '#000000',
+        dark: '#161618',
+        base: '#212124',
+        light: '#818181',
+        lightest: '#FFFFFF',
       },
-      white: "#FAFAFA",
-      black: "#050505",
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif']
@@ -42,4 +46,5 @@ export default withMT({
     extend: {},
   },
   plugins: [],
+  darkmode: "class",
 });
