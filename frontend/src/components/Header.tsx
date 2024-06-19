@@ -10,11 +10,11 @@ import {
 import { Link } from "react-router-dom";
 
 const Menus = [
-  { title: "Dashboard", icon: "Presentation_Chart", link: "/Dashboard" },
-  { title: "Offres", icon: "Briefcase", link: "/Offres" },
-  { title: "Ma sélection", icon: "Bookmark", link: "/Selection" },
-  { title: "Paramètres", icon: "Params", link: "/Parametres" },
-  { title: "Connexion", icon: "Connexion", link: "/Connexion" },
+  { title: "Dashboard", icon: "Presentation_Chart", link: "/dashboard" },
+  { title: "Offres", icon: "Briefcase", link: "/offres" },
+  { title: "Ma sélection", icon: "Bookmark", link: "/selection" },
+  { title: "Paramètres", icon: "Params", link: "/parametres" },
+  { title: "Connexion", icon: "Connexion", link: "/connexion" },
 ];
 
 const icons: { [key: string]: string } = {
