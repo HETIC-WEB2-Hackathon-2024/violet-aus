@@ -3,6 +3,6 @@ import { getProfilInformations } from "../controllers/settings.controller";
 
 const router = Router();
 
-router.get("/", getProfilInformations);
+router.post("/", getProfilInformations);
 
 export default router;

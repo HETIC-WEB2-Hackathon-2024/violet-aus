@@ -8,7 +8,8 @@ const get = (req: Request, res: Response) => {
 };
 
 const router = Router();
-router.use("/", get);
 router.use("/offre", offreRouter);
+router.use("/settings", settingsRouter);
+router.use("/", get);
 
 export default router;

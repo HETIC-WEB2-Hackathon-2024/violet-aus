@@ -1,3 +1,8 @@
+@authHost = violet-aus.eu.auth0.com
+@client_id = trUBKTVNDZEbuXbhyQJ6OugQAarLC5Hc
+@client_secret = r1zokOLw4wsddGT4tkACAetp_1Lag-mnV0yxbTZRl7Xz_8NytFoJemV5OwWntoey
+@audience = api.violet.aus.floless.fr
+
 // localhost  
 @protocol = http
 @host = localhost
@@ -27,7 +32,7 @@ Content-Type: application/json
 
 ###
 # @name getOffreById
-GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14621
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14600
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
@@ -125,6 +130,21 @@ authorization: Bearer {{JWT}}
   "titre_emploi": "titre_emploiupdate"
 }
 
+###
+# @name getProfilInformations
+POST {{protocol}}://{{host}}:{{portBack}}/api/private/settings
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+{
+  "email": "candidat30@aus.floless.fr"
+}
+
+###
+# @name test
+GET https://violet-aus.eu.auth0.com/userinfo
+Content-Type: application/json
+authorization: Bearer {{JWT}}
 
 ### PUBLIC ###
 
@@ -134,3 +154,4 @@ authorization: Bearer {{JWT}}
 GET {{protocol}}://{{host}}:{{portBack}}/api/public/offre/1
 Content-Type: application/json
 authorization: Bearer {{JWT}}
+

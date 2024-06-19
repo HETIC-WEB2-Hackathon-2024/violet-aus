@@ -35,15 +35,15 @@ function Settings() {
         );
         // const response = await authenticatedGet(token, "api/private/settings");
 
-        // if (response[0] && response[0].date_naissance) {
-        //   const dateObj = new Date(response[0].date_naissance);
-        //   const formattedDate = dateObj.toISOString().split("T")[0]; // Format ISO 8601 sans l'heure
-        //   setDateOfBirth(formattedDate);
-        // } else {
-        //   throw new Error("Date of birth not found in response");
-        // }
-        setData(response);
-        console.log(response);
+        setData(response.message);
+
+        const dateObj = new Date(response.message[0].date_naissance);
+        if (!isNaN(dateObj.getTime())) {
+          const formattedDate = dateObj.toISOString().split("T")[0];
+          setDateOfBirth(formattedDate);
+        } else {
+          throw new Error("Invalid date format");
+        }
       } catch (error) {
         setError(`Error from web service: ${error}`);
       } finally {
@@ -69,96 +69,77 @@ function Settings() {
 
   return (
     <div>
-      <h1 className="text-h1">Mes paramètres</h1>
+      <h1 className="text-h1 text-center m-2">Paramètres</h1>
       {/* <p>Utilisateur : {user?.email}</p> */}
-      <p>Test candidat : candidat30@aus.floless.fr</p>
-      {/* {data?.map((profil: any) => ( */}
-      <form
-        // key={profil.id}
-        className="flex gap-4 flex-col"
-      >
-        <div>
-          <label htmlFor="lastname">Nom</label>
-          <input
-            id="lastname"
-            name="lastname"
-            type="text"
-            className="border-2"
-            //   value={profil.nom}
-            //   onChange={handleDateOfBirthChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="firstname">Prénom</label>
-          <input
-            id="firstname"
-            name="firstname"
-            type="text"
-            className="border-2"
-            //   value={profil.prenom}
-            //   onChange={handleDateOfBirthChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="telephone">Téléphone</label>
-          <input
-            id="telephone"
-            name="telephone"
-            type="text"
-            className="border-2"
-            //   value={profil.telephone}
-            //   onChange={handleDateOfBirthChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">E-mail</label>
-          <input
-            id="email"
-            name="email"
-            type="text"
-            className="border-2"
-            //   value={profil.email}
-            //   onChange={handleDateOfBirthChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="country">Pays</label>
-          <input
-            id="country"
-            name="country"
-            type="text"
-            className="border-2"
-            //   value={profil.pays}
-            //   onChange={handleDateOfBirthChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="birthday">Date de naissance</label>
-          <input
-            id="birthday"
-            name="birthday"
-            type="date"
-            className="border-2"
-            //   value={dateOfBirth || ""}
-            //   onChange={handleDateOfBirthChange}
-          />
-        </div>
-        <div>
-          {/* <Button
-            className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
-            type="submit"
-            value="Modifier"
-          >
-            <p className="text-white">Modifier</p>
-          </Button> */}
-          <input
-            className="w-fit p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
-            type="submit"
-            value="Modifier"
-          />
-        </div>
-      </form>
-      {/* ))} */}
+      {data?.map((profil: any) => (
+        <form key={profil.id} className="flex gap-4 flex-col">
+          <div>
+            <p>Test e-mail candidat : candidat30@aus.floless.fr</p>
+          </div>
+          <div>
+            <label htmlFor="lastname">Nom</label>
+            <input
+              id="lastname"
+              name="lastname"
+              type="text"
+              className="border-2"
+              value={profil.nom}
+              onChange={handleDateOfBirthChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="firstname">Prénom</label>
+            <input
+              id="firstname"
+              name="firstname"
+              type="text"
+              className="border-2"
+              value={profil.prenom}
+              onChange={handleDateOfBirthChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="telephone">Téléphone</label>
+            <input
+              id="telephone"
+              name="telephone"
+              type="text"
+              className="border-2"
+              value={profil.telephone}
+              onChange={handleDateOfBirthChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="country">Pays</label>
+            <input
+              id="country"
+              name="country"
+              type="text"
+              className="border-2"
+              value={profil.pays}
+              onChange={handleDateOfBirthChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="birthday">Date de naissance</label>
+            <input
+              id="birthday"
+              name="birthday"
+              type="date"
+              className="border-2"
+              value={dateOfBirth || ""}
+              onChange={handleDateOfBirthChange}
+            />
+          </div>
+          <div className="w-fit">
+            <input
+              className="p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
+              type="submit"
+              value="Modifier"
+            />
+          </div>
+        </form>
+      ))}
     </div>
   );
 }
