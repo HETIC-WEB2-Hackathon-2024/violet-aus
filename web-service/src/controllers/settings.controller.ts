@@ -15,7 +15,6 @@ export const getProfilInformations = async (req: Request, res: Response) => {
 
     const userinfo = await userinfoResponse.json();
 
-    console.log(userinfo.email);
     const profilInfo = await CandidatRepository.getCandidatByEmail(
       userinfo.email
     );
@@ -27,20 +26,24 @@ export const getProfilInformations = async (req: Request, res: Response) => {
   }
 };
 
-// export const UpdateProfilInformations = async (req: Request, res: Response) => {
-//     try {
-//       // const { user } = req.body;
-//       // if (!user) {
-//       //   res.status(400).send({ error: "User is required" });
-//       //   return;
-//       // }
+export const updateProfilInformations = async (req: Request, res: Response) => {
+  try {
+    const { candidateInfo } = req.body;
+    if (!candidateInfo) {
+      res.status(400).send({ error: "Candidate's informations are required" });
+      return;
+    }
 
-//       // const profilInfo = await getProfilInfo(email);
-//       // res.send(profilInfo);
-//       res.status(200).json({ message: "Candidat informations retrieved successfully" });
-//       // res.status(200).json({ data : profilInfo });
-//     } catch (error) {
-//       console.error("Error in getSettings:", error);
-//       res.status(500).send({ error: "Internal Server Error", reason: error });
-//     }
-//   }
+    console.log("Update :", candidateInfo);
+    const profilInfo = await CandidatRepository.updateCandidatByEmail(
+      candidateInfo
+    );
+
+    res
+      .status(200)
+      .json({ message: "Candidate's informations updated successfully" });
+  } catch (error) {
+    console.error("Error in getSettings:", error);
+    res.status(500).send({ error: "Internal Server Error", reason: error });
+  }
+};

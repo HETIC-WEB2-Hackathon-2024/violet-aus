@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { authenticatedGet, authenticatedPost } from "../auth/helper";
-// import {
-//   Card,
-//   Typography,
-//   List,
-//   ListItemPrefix,
-//   Button,
-//   IconButton,
-// } from "@material-tailwind/react";
 
 function Settings() {
-  const { user, logout } = useAuth0();
+  // const { user, logout } = useAuth0();
   const { getAccessTokenSilently } = useAuth0();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const [candidateInfo, setCandidateInfo] = useState({
+    lastname: data?.nom || "",
+    firstname: data?.prenom || "",
+    telephone: data?.telephone || "",
+    country: data?.pays || "",
+    birthday: data?.birthday || "",
+    email: data?.email || "",
+  });
 
   useEffect(() => {
     async function callApi() {
@@ -42,88 +44,123 @@ function Settings() {
     callApi();
   }, [getAccessTokenSilently]);
 
+  useEffect(() => {
+    if (data && !isInitialized) {
+      setCandidateInfo({
+        lastname: data.nom || "",
+        firstname: data.prenom || "",
+        telephone: data.telephone || "",
+        country: data.pays || "",
+        birthday: dateOfBirth || "",
+        email: data.email || "",
+      });
+      setIsInitialized(true);
+    }
+  }, [data, dateOfBirth, isInitialized]);
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Chargement en cours...</div>;
   }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  const handleDateOfBirthChange = (
+  function handleChange(
+    field: any,
     event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setDateOfBirth(event.target.value);
-  };
-  console.log(data);
+  ) {
+    setCandidateInfo((prevState) => ({
+      ...prevState,
+      [field]: event.target.value,
+    }));
+    if (field == "birthday") {
+      setDateOfBirth(event.target.value);
+    }
+  }
+
+  async function updateCandidate(event: any) {
+    event.preventDefault();
+    try {
+      const token = await getAccessTokenSilently();
+      const response = await authenticatedPost(token, "api/private/settings", {
+        candidateInfo,
+      });
+      console.log(response);
+    } catch (error) {
+      setError(`Error from web service: ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div>
       <h1 className="text-h1 text-center m-2">Paramètres</h1>
-      <p>Utilisateur : {data?.nom}</p>
       <form className="flex gap-4 flex-col">
+        <p>E-mail : {data?.email}</p>
         <div>
-          <p>Test e-mail candidat : candidat30@aus.floless.fr</p>
-        </div>
-        <div>
-          <label htmlFor="lastname">Nom</label>
+          <label htmlFor="lastname">Nom : </label>
           <input
             id="lastname"
             name="lastname"
             type="text"
             className="border-2"
-            value={data?.nom}
-            onChange={handleDateOfBirthChange}
+            defaultValue={data?.nom}
+            onChange={(event) => handleChange("lastname", event)}
           />
         </div>
         <div>
-          <label htmlFor="firstname">Prénom</label>
+          <label htmlFor="firstname">Prénom : </label>
           <input
             id="firstname"
             name="firstname"
             type="text"
             className="border-2"
-            value={data?.prenom}
-            onChange={handleDateOfBirthChange}
+            defaultValue={data?.prenom}
+            onChange={(event) => handleChange("firstname", event)}
           />
         </div>
         <div>
-          <label htmlFor="telephone">Téléphone</label>
+          <label htmlFor="telephone">Téléphone : </label>
           <input
             id="telephone"
             name="telephone"
             type="text"
             className="border-2"
-            value={data?.telephone}
-            onChange={handleDateOfBirthChange}
+            maxLength={12}
+            defaultValue={data?.telephone}
+            onChange={(event) => handleChange("telephone", event)}
           />
         </div>
         <div>
-          <label htmlFor="country">Pays</label>
+          <label htmlFor="country">Pays : </label>
           <input
             id="country"
             name="country"
             type="text"
             className="border-2"
-            value={data?.pays}
-            onChange={handleDateOfBirthChange}
+            defaultValue={data?.pays}
+            onChange={(event) => handleChange("country", event)}
           />
         </div>
         <div>
-          <label htmlFor="birthday">Date de naissance</label>
+          <label htmlFor="birthday">Date de naissance : </label>
           <input
             id="birthday"
             name="birthday"
             type="date"
             className="border-2"
-            value={dateOfBirth || ""}
-            onChange={handleDateOfBirthChange}
+            defaultValue={dateOfBirth || ""}
+            onChange={(event) => handleChange("birthday", event)}
           />
         </div>
         <div className="w-fit">
           <input
             className="p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
             type="submit"
-            value="Modifier"
+            value="Mettre à jour"
+            onClick={(event) => updateCandidate(event)}
           />
         </div>
       </form>
