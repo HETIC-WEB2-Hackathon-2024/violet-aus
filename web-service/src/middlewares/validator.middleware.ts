@@ -1,25 +1,26 @@
 import { Request, Response, NextFunction } from 'express';
 
-const validator = (dto: any) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const missingFields = Object.keys(dto).filter(field => dto[field] !== undefined && !(field in req.body));
-    if (missingFields.length > 0) {
-      return res.status(400).json({
-        error: 'Validation Error',
-        message: `Missing fields: ${missingFields.join(', ')}`,
-      });
+function validator(dto: any) {
+  return function(req: Request, res: Response, next: NextFunction) {
+    if (!req.body) {
+      return res.status(400).json({ error: 'Request body is missing' });
     }
 
-    const invalidTypes = Object.keys(dto).filter(field => typeof req.body[field] !== typeof dto[field]);
-    if (invalidTypes.length > 0) {
-      return res.status(400).json({
-        error: 'Validation Error',
-        message: `Invalid types for fields: ${invalidTypes.join(', ')}`,
-      });
+    for (let key in dto) {
+      const { required, type } = dto[key];
+
+      if (required && !(key in req.body)) {
+        return res.status(400).json({ error: `Missing required field: ${key}` });
+      }
+
+      if (req.body[key] !== undefined && typeof req.body[key] !== type) {
+        return res.status(400).json({ error: `Field ${key} must be of type ${type}` });
+      }
     }
 
     next();
   };
-};
+}
 
 export default validator;
+

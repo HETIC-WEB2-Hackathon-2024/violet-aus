@@ -49,3 +49,6 @@ const LogoutButton = () => {
 };
 
 export default LogoutButton;
+
+# Problem create offre 
+SELECT setval('offre_id_seq', (SELECT MAX(id) FROM public.offre));

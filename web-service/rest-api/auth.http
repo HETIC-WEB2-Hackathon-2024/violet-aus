@@ -1,3 +1,7 @@
+// localhost  
+@protocol = http
+@host = localhost
+@portBack = 3000
 
 ### 
 # @name auth
@@ -23,7 +27,13 @@ Content-Type: application/json
 
 ###
 # @name getOffreById
-GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/2
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14621
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name getOffreByIdExtend
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/extend/14621
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
@@ -34,11 +44,91 @@ Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
+# @name countAllOffers
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/dashboard/countoffer/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name countOfferByJob
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/dashboard/countofferbyjob/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
 # @name createOffre
 POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
+{
+  "secteur_id": 7,
+  "metier_id": 10,
+  "titre_emploi": "titre_emploi",
+  "entreprise": "entreprise",
+  "lieu": "lieu",
+  "description_courte": "description_courte",
+  "contrat": "contrat",
+  "type_contrat": "type_contrat",
+  "description": "description",
+  "commune_id": "80001"
+}
+
+###
+# @name createOffreMany
+POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/many
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+[
+  {
+    "secteur_id": 7,
+    "metier_id": 10,
+    "titre_emploi": "titre_emploi",
+    "entreprise": "entreprise",
+    "lieu": "lieu",
+    "description_courte": "description_courte",
+    "contrat": "contrat",
+    "type_contrat": "type_contrat",
+    "description": "description",
+    "commune_id": "80001"
+  },
+  {
+    "secteur_id": 7,
+    "metier_id": 10,
+    "titre_emploi": "titre_emploi",
+    "entreprise": "entreprise",
+    "lieu": "lieu",
+    "description_courte": "description_courte",
+    "contrat": "contrat",
+    "type_contrat": "type_contrat",
+    "description": "description",
+    "commune_id": "80001"
+  }
+]
+
+###
+# @name deleteById
+DELETE  {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14623
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name updateOffre
+PATCH {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14621
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+{
+  "secteur_id": 32,
+  "metier_id": 10,
+  "titre_emploi": "titre_emploiupdate"
+}
+
+
+### PUBLIC ###
+
+###
 
 ###
 GET {{protocol}}://{{host}}:{{portBack}}/api/public/offre/1
