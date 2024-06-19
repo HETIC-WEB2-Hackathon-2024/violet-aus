@@ -48,11 +48,11 @@ export default function Header() {
     {
       title: "Dashboard",
       icon: "Presentation_Chart",
-      link: "/Dashboard",
+      link: "/dashboard",
       top: true,
     },
-    { title: "Offres", icon: "Briefcase", link: "/Offres", top: true },
-    { title: "Ma sélection", icon: "Bookmark", link: "/Selection", top: true },
+    { title: "Offres", icon: "Briefcase", link: "/offres", top: true },
+    { title: "Ma sélection", icon: "Bookmark", link: "/selection", top: true },
     {
       title: theme === "light" ? "Light Mode" : "Dark Mode",
       icon: theme === "light" ? "LightMode" : "DarkMode",
@@ -60,8 +60,8 @@ export default function Header() {
       top: false,
       isThemeToggle: true,
     },
-    { title: "Paramètres", icon: "Params", link: "/Parametres", top: false },
-    { title: "Connexion", icon: "Connexion", link: "/Connexion", top: false },
+    { title: "Paramètres", icon: "Params", link: "/parametres", top: false },
+    { title: "Connexion", icon: "Connexion", link: "/connexion", top: false },
   ];
 
   return (
