@@ -11,7 +11,11 @@ const app = express();
 
 // make sure we hare handling CORS properly
 // See more on CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:5173/",
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(errorHandler);
 
