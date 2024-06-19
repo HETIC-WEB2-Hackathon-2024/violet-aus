@@ -1,16 +1,13 @@
-import HelperRepository from "./helper.repository";
 import { query } from "../config/database";
 
-class CandidatRepository extends HelperRepository {
-//   async getCandidatByEmail(email: string): Promise<Candidat | null> {
-//     return this.getById('offre', id);
-//   }
+class CandidatRepository {
+  async getCandidatByEmail(email: string): Promise<any> {
+    const sql = `SELECT * FROM candidat WHERE email = '${email}'`;
+    const result = await query(sql);
+    console.log(result);
+    return result;
+
+  }
 }
 
 export default new CandidatRepository();
-
-
-// export function getProfilInfo(email: string): Promise<any[]> {
-//     return query(`SELECT * FROM candidat WHERE email = '${email}'`);
-//   }
-  

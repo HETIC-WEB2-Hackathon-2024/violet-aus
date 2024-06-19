@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { authenticatedGet, authenticatedPost } from "../auth/helper";
-import {
-  Card,
-  Typography,
-  List,
-  ListItemPrefix,
-  Button,
-  IconButton,
-} from "@material-tailwind/react";
+// import {
+//   Card,
+//   Typography,
+//   List,
+//   ListItemPrefix,
+//   Button,
+//   IconButton,
+// } from "@material-tailwind/react";
 
 function Settings() {
   const { user, logout } = useAuth0();
@@ -22,6 +22,7 @@ function Settings() {
     async function callApi() {
       try {
         const token = await getAccessTokenSilently();
+        const email = "candidat30@aus.floless.fr";
         // if (!email) {
         //   throw new Error("User email is not available");
         // }
@@ -29,7 +30,7 @@ function Settings() {
           token,
           "api/private/settings",
           {
-            user,
+            email,
           }
         );
         // const response = await authenticatedGet(token, "api/private/settings");
@@ -69,11 +70,12 @@ function Settings() {
   return (
     <div>
       <h1 className="text-h1">Mes paramètres</h1>
-      <p>Utilisateur : {user?.email}</p>
+      {/* <p>Utilisateur : {user?.email}</p> */}
+      <p>Test candidat : candidat30@aus.floless.fr</p>
       {/* {data?.map((profil: any) => ( */}
       <form
-      // key={profil.id}
-      className="flex gap-4 flex-col"
+        // key={profil.id}
+        className="flex gap-4 flex-col"
       >
         <div>
           <label htmlFor="lastname">Nom</label>
@@ -149,7 +151,11 @@ function Settings() {
           >
             <p className="text-white">Modifier</p>
           </Button> */}
-          <input className="w-fit p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light" type="submit" value="Modifier" />
+          <input
+            className="w-fit p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
+            type="submit"
+            value="Modifier"
+          />
         </div>
       </form>
       {/* ))} */}
