@@ -1,6 +1,8 @@
+import Secteur from "./Secteur.entity";
+
 export default class Offre {
   private id: number;
-  private secteur_id: number;
+  private secteur : Secteur;
   private metier_id: number;
   private titre_emploi: string;
   private entreprise: string;
@@ -11,33 +13,37 @@ export default class Offre {
   private description: string;
   private commune_id: string;
 
-  constructor(
-    id: number,
-    secteur_id: number,
-    metier_id: number,
-    titre_emploi: string,
-    entreprise: string,
-    lieu: string,
-    description_courte: string,
-    contrat: string,
-    type_contrat: string,
-    description: string,
-    commune_id: string
-  ) {
-    this.id = id;
-    this.secteur_id = secteur_id;
-    this.metier_id = metier_id;
-    this.titre_emploi = titre_emploi;
-    this.entreprise = entreprise;
-    this.lieu = lieu;
-    this.description_courte = description_courte;
-    this.contrat = contrat;
-    this.type_contrat = type_contrat;
-    this.description = description;
-    this.commune_id = commune_id;
+  constructor( data: 
+      {
+        id: number,
+        secteur_id?: number,
+        secteur?: {id : number, secteur: string},
+        metier_id: number,
+        titre_emploi: string,
+        entreprise: string,
+        lieu: string,
+        description_courte: string,
+        contrat: string,
+        type_contrat: string,
+        description: string,
+        commune_id: string
+    }
+  ) 
+  {
+    this.id = data.id;
+    this.secteur = data.secteur? new Secteur(data.secteur): new Secteur({id : data.secteur_id || 0, secteur: ''});
+    this.metier_id = data.metier_id;
+    this.titre_emploi = data.titre_emploi;
+    this.entreprise = data.entreprise;
+    this.lieu = data.lieu;
+    this.description_courte = data.description_courte;
+    this.contrat = data.contrat;
+    this.type_contrat = data.type_contrat;
+    this.description = data.description;
+    this.commune_id = data.commune_id;
   }
 
-  getId(): number {
+   getId(): number {
     return this.id;
   }
 
@@ -45,12 +51,12 @@ export default class Offre {
     this.id = id;
   }
 
-  getSecteur_id(): number {
-    return this.secteur_id;
+  getSecteur(): Secteur {
+    return this.secteur;
   }
 
-  setSecteur_id(secteur_id: number): void {
-    this.secteur_id = secteur_id;
+  setSecteur(secteur: Secteur): void {
+    this.secteur = secteur;
   }
 
   getMetier_id(): number {
