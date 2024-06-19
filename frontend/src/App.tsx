@@ -21,20 +21,14 @@ const router = createBrowserRouter([
       //   path: "Selection",
       //   element: <Selection />,
       // },
-      // {
-      //   path: "Parametres",
-      //   element: <Parametres />,
-      // },
+       {
+         path: "Settings",
+         element: <Settings />,
+       },
       // {
       //   path: "Connexion",
       //   element: <Connexion />,
       // },
-    ],
-  },
-  {
-    path: "/parametres",
-    element: <Settings />,
-    children: [
     ],
   },
 ]);

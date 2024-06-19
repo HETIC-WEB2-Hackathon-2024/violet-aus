@@ -13,7 +13,7 @@ const Menus = [
   { title: "Dashboard", icon: "Presentation_Chart", link: "/Dashboard" },
   { title: "Offres", icon: "Briefcase", link: "/Offres" },
   { title: "Ma sélection", icon: "Bookmark", link: "/Selection" },
-  { title: "Paramètres", icon: "Params", link: "/Parametres" },
+  { title: "Paramètres", icon: "Params", link: "/Settings" },
   { title: "Connexion", icon: "Connexion", link: "/Connexion" },
 
 ];
