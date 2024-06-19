@@ -61,6 +61,12 @@ Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
+# @name getAllRegion
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/commune/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
 # @name createOffre
 POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
 Content-Type: application/json
