@@ -43,6 +43,12 @@ Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
+# @name getFilteredOffre
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre?titre_emploi=Dev
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
 # @name countAllOffers
 GET {{protocol}}://{{host}}:{{portBack}}/api/private/dashboard/countoffer/
 Content-Type: application/json
