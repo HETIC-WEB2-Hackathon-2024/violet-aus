@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Card,
   Typography,
@@ -8,13 +8,23 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
   const [sidenavOpen, setSideNavOpen] = useState(true);
   const [theme, setTheme] = useState("light");
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { logout } = useAuth0();
+
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
+    if (!isLoggedIn) {
+      logout({ logoutParams: { returnTo: window.location.origin } });
+    }
   };
 
   const icons: { [key: string]: string } = {
@@ -61,7 +71,13 @@ export default function Header() {
       isThemeToggle: true,
     },
     { title: "Paramètres", icon: "Params", link: "/parametres", top: false },
-    { title: "Connexion", icon: "Connexion", link: "/connexion", top: false },
+    {
+      title: isLoggedIn ? "Connexion" : "Deconnexion",
+      icon: "Connexion",
+      link: "",
+      top: false,
+      isLogin: true,
+    },
   ];
 
   return (
@@ -134,6 +150,9 @@ export default function Header() {
                   if (menu.isThemeToggle) {
                     e.preventDefault();
                     toggleTheme();
+                  } else if (menu.isLogin) {
+                    e.preventDefault();
+                    toggleLogin();
                   }
                 }}
               >
@@ -212,6 +231,9 @@ export default function Header() {
                   if (menu.isThemeToggle) {
                     e.preventDefault();
                     toggleTheme();
+                  } else if (menu.isLogin) {
+                    e.preventDefault();
+                    toggleLogin();
                   }
                 }}
               >
