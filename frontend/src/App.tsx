@@ -2,16 +2,17 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import "./index.css";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      // {
-      //   path: "Dashboard",
-      //   element: <Dashboard />,
-      // },
+      {
+        path: "dashboard",
+        element: <Dashboard/>,
+      },
       // {
       //   path: "Offres",
       //   element: <Offres />,
