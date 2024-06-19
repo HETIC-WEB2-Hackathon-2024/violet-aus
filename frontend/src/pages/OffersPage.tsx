@@ -2,19 +2,37 @@ import SearchBar from "../components/SearchBar";
 import { ButtonDefault } from "../components/ButtonDefault";
 import { SimpleCard } from "../components/SimpleCard";
 import { useEffect, useState } from "react";
+import { authenticatedGet } from "../auth/helper";
+import { useAuth0 } from "@auth0/auth0-react";
+
+interface Offre {
+  title: string;
+  enterprise: string;
+  contract: string;
+  place: string;
+}
 
 export default function OffersPage() {
+  const { getAccessTokenSilently } = useAuth0();
+  const [loading, setLoading] = useState(true);
   const [offers, setOffers] = useState();
 
-  useEffect(() => {
-    async function getOffers() {
-      try {
-        const offers = await fetch("https://localhost:3000/");
-      } catch (error) {
-        console.error(`$error`);
-      }
-    }
-  });
+  // useEffect(() => {
+  //   async function getOffers() {
+  //     try {
+  //       const token = await getAccessTokenSilently();
+  //       const response = await authenticatedGet(
+  //         token,
+  //         "http://localhost:3000/api/private/offre/"
+  //       );
+  //       return response;
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+
+  //   console.log(getOffers());
+  // });
   function test() {
     console.log("Yo");
   }
