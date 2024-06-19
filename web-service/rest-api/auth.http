@@ -51,6 +51,18 @@ Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
+# @name countAllOffers
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/dashboard/countoffer/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name countOfferByJob
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/dashboard/countofferbyjob/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
 # @name createOffre
 POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
 Content-Type: application/json
