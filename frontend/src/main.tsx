@@ -8,10 +8,10 @@ import { ThemeProvider } from "@material-tailwind/react";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Auth0Provider
-      domain="adopte-un-stagiaire.eu.auth0.com"
-      clientId="R5nkYZygAqAtORqxqqpUPf03vuBAO7Xt"
+      domain="violet-aus.eu.auth0.com"
+      clientId="aJ7zv8SnWKNhg3y8NWVNitUPOhdTHg6Q"
       authorizationParams={{
-        audience: "api.aus.floless.fr",
+        audience: "api.violet.aus.floless.fr",
         redirect_uri: window.location.origin,
       }}
     >

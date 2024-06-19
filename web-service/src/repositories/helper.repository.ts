@@ -20,12 +20,20 @@ interface Option {
 }
 
 export default class HelperRepository {
-  async findById(entity: string, id: number): Promise<any> {
-    return query(`SELECT * FROM ${entity} WHERE id = ${id}`);
+  private entity: string;
+
+  constructor(entity: string) {
+    this.entity = entity;
   }
 
-  async findAll(entity: string): Promise<any> {
-    return query(`SELECT * FROM ${entity}`);
+  async findById(id: number): Promise<any> {
+    const sql = `SELECT * FROM ${this.entity} WHERE id = ${id}}`;
+    return query(sql);
+  }
+
+  async findAll(): Promise<any> {
+    const sql = `SELECT * FROM ${this.entity}`;
+    return query(sql);
   }
 
   // async findByOption(entity: string, option: Option): Promise<any> {
@@ -40,11 +48,11 @@ export default class HelperRepository {
   //   return query(queryString);
   // }
 
-  async create(entity: string, data: any): Promise<any> {
+  async createOne(data: any): Promise<any> {
     const keys = Object.keys(data);
     const values = Object.values(data);
-    const queryString = `INSERT INTO ${entity} (${keys.join(', ')}) VALUES (${values.map((value) => `'${value}'`).join(', ')})`;
-    return query(queryString);
+    const sql = `INSERT INTO ${this.entity} (${keys.join(', ')}) VALUES (${values.map((value) => `'${value}'`).join(', ')})`;
+    return query(sql);
   }
 
   async deleteById(entity: string, id: number): Promise<any> {

@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { auth } from 'express-oauth2-jwt-bearer';
 
 const jwtCheck = auth({
-  audience: 'api.aus.floless.fr',
-  issuerBaseURL: 'https://adopte-un-stagiaire.eu.auth0.com/',
-  tokenSigningAlg: 'RS256',
+  audience: 'api.violet.aus.floless.fr',
+  issuerBaseURL: 'https://violet-aus.eu.auth0.com/',
+  tokenSigningAlg: 'RS256'
 });
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {

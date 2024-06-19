@@ -20,7 +20,7 @@ process.on("exit", function () {
 export async function query(sqlStatement: string): Promise<any[]> {
   let rows = [];
   const client = await pool.connect();
-  const response = await client.query(sqlStatement);
+  const response = await client.query(sqlStatement, []);
   rows = response.rows;
   client.release();
   return rows;
