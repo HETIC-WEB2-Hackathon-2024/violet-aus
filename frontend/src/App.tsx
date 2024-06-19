@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: "selection",
-        element: <div>Offre</div>,
+        element: <OffersPage />,
         // element: <Selection />,
       },
       {
@@ -67,7 +67,7 @@ function Layout() {
         </main>
         <Footer />
       </div>
-    </div>
+    </>
   );
 }
 
