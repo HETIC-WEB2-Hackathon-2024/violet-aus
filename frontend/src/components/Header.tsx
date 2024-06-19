@@ -63,22 +63,13 @@ export default function Header() {
             />
           </svg>
         </ListItemPrefix>
-        <div className="mb-2 flex flex-col items-center gap-2 p-4">
+        <div className="flex flex-col items-center gap-2 p-4">
           <img
-            src="https://www.stickers-garage.com/imgtransform.php?f=1&filename=https://www.stickers-garage.com/resize/720x720/zc/3/f/0/src/sites/stickers/files/products/429f5d5147a6874bc1fd2d867927305a.png"
+            src="/logo-aus.svg"
             className={`cursor-pointer duration-500 ${
               sidenavOpen && "rotate-[360deg]"
             }`}
           />
-          <Typography
-            variant="h5"
-            color="white"
-            className={`${
-              !sidenavOpen && "hidden"
-            } origin-left duration-200 text-center`}
-          >
-            AUS
-          </Typography>
         </div>
       </Link>
       <hr className=" border-primary-dark" />
@@ -87,7 +78,7 @@ export default function Header() {
       {Menus.map((menu, index) => (
         <Link key={index} to={menu.link}>
           <Button
-            className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
+            className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none"
           >
             <ListItemPrefix className="text-white">
               <svg
@@ -119,10 +110,10 @@ export default function Header() {
       ))}
     </List>
       : 
-      <List>
+      <List className="gap-2">
       {Menus.map((menu, index) => (
           <IconButton
-            className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2"
+            className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2 shadow-none"
           >
             <Link key={index} to={menu.link}>
               <ListItemPrefix className="text-white mr-0">
