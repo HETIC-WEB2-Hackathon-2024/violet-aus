@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { authenticatedGet, authenticatedPost } from "../auth/helper";
+import {
+  Card,
+  Typography,
+  List,
+  ListItemPrefix,
+  Button,
+  IconButton,
+} from "@material-tailwind/react";
 
 function Settings() {
   const { user, logout } = useAuth0();
@@ -17,9 +25,13 @@ function Settings() {
         // if (!email) {
         //   throw new Error("User email is not available");
         // }
-        const response = await authenticatedPost(token, "api/private/settings", {
-          user,
-        });
+        const response = await authenticatedPost(
+          token,
+          "api/private/settings",
+          {
+            user,
+          }
+        );
         // const response = await authenticatedGet(token, "api/private/settings");
 
         // if (response[0] && response[0].date_naissance) {
@@ -56,10 +68,12 @@ function Settings() {
 
   return (
     <div>
+      <h1 className="text-h1">Mes paramètres</h1>
       <p>Utilisateur : {user?.email}</p>
       {/* {data?.map((profil: any) => ( */}
       <form
       // key={profil.id}
+      className="flex gap-4 flex-col"
       >
         <div>
           <label htmlFor="lastname">Nom</label>
@@ -67,6 +81,7 @@ function Settings() {
             id="lastname"
             name="lastname"
             type="text"
+            className="border-2"
             //   value={profil.nom}
             //   onChange={handleDateOfBirthChange}
           />
@@ -77,6 +92,7 @@ function Settings() {
             id="firstname"
             name="firstname"
             type="text"
+            className="border-2"
             //   value={profil.prenom}
             //   onChange={handleDateOfBirthChange}
           />
@@ -87,6 +103,7 @@ function Settings() {
             id="telephone"
             name="telephone"
             type="text"
+            className="border-2"
             //   value={profil.telephone}
             //   onChange={handleDateOfBirthChange}
           />
@@ -97,6 +114,7 @@ function Settings() {
             id="email"
             name="email"
             type="text"
+            className="border-2"
             //   value={profil.email}
             //   onChange={handleDateOfBirthChange}
           />
@@ -107,6 +125,7 @@ function Settings() {
             id="country"
             name="country"
             type="text"
+            className="border-2"
             //   value={profil.pays}
             //   onChange={handleDateOfBirthChange}
           />
@@ -117,12 +136,20 @@ function Settings() {
             id="birthday"
             name="birthday"
             type="date"
+            className="border-2"
             //   value={dateOfBirth || ""}
             //   onChange={handleDateOfBirthChange}
           />
         </div>
         <div>
-          <input type="submit" value="Modifier" />
+          {/* <Button
+            className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light"
+            type="submit"
+            value="Modifier"
+          >
+            <p className="text-white">Modifier</p>
+          </Button> */}
+          <input className="w-fit p-4 flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light" type="submit" value="Modifier" />
         </div>
       </form>
       {/* ))} */}
