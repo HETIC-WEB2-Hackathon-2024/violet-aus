@@ -17,7 +17,10 @@ export default function Header() {
   const { logout } = useAuth0();
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
   const toggleLogin = () => {
@@ -84,19 +87,17 @@ export default function Header() {
     <Card
       className={` ${
         sidenavOpen ? "w-72" : "w-20 "
-      } relative duration-100 h-100vh p-1 shadow-xl bg-primary-base rounded-none`}
+      } relative duration-100 h-100vh p-1 shadow-xl bg-primary-base_white dark:bg-primary-base_dark rounded-none`}
     >
       <div className="flex flex-col items-center gap-2 p-4">
         <img
           src={sidenavOpen ? "/logo_open_state.svg" : "/logo_close_state.svg"}
-          className={`cursor-pointer duration-500 ${
-            sidenavOpen && "rotate-[360deg]"
-          }`}
+          className={`duration-500 ${sidenavOpen && "rotate-[360deg]"}`}
           alt="Logo"
         />
       </div>
 
-      <hr className=" border-primary-dark" />
+      <hr className=" border-primary-dark_white dark:border-primary-dark_dark" />
       {sidenavOpen ? (
         <div className="flex flex-col justify-between h-full">
           <List>
@@ -111,7 +112,7 @@ export default function Header() {
                   }
                 }}
               >
-                <Button className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
+                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark shadow-none">
                   <ListItemPrefix className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +157,7 @@ export default function Header() {
                   }
                 }}
               >
-                <Button className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
+                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark shadow-none">
                   <ListItemPrefix className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +202,7 @@ export default function Header() {
                   }
                 }}
               >
-                <IconButton className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2 shadow-none">
+                <IconButton className="flex items-center w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark ml-2 shadow-none">
                   <ListItemPrefix className="text-white mr-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +238,7 @@ export default function Header() {
                   }
                 }}
               >
-                <IconButton className="flex items-center w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light ml-2 shadow-none">
+                <IconButton className="flex items-center w-full  bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark ml-2 shadow-none">
                   <ListItemPrefix className="text-white mr-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +254,7 @@ export default function Header() {
                         d={icons[menu.icon]}
                       />
                     </svg>
-                  </ListItemPrefix>{" "}
+                  </ListItemPrefix>
                 </IconButton>
               </Link>
             ))}
