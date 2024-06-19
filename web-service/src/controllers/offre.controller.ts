@@ -1,18 +1,21 @@
-import { Request, Response } from 'express';
-import offreRepository from '../repositories/offre.repository';
-import Offre from '../entities/Offre.entity';
-
+import { Request, Response } from "express";
+import offreRepository from "../repositories/offre.repository";
+import Offre from "../entities/Offre.entity";
 
 export const getById = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
 
     const result = await offreRepository.findById(id);
-    const offre: Offre = new Offre(result.rows[0])
+    const offre: Offre = new Offre(result.rows[0]);
 
-    res.status(200).json({ message: 'Offre retrieved successfully', offre: offre });
-  
+    res
+      .status(200)
+      .json({ message: "Offre retrieved successfully", offre: offre });
   } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
     res
       .status(500)
       .json({ message: "Internal Server Error", error: error.message });
@@ -108,7 +111,7 @@ export const updateById = async (req: Request, res: Response) => {
 //     const offre: Offre = new Offre(result.rows[0])
 
 //     res.status(200).json({ message: 'Offre retrieved successfully', offre: offre });
-  
+
 //   } catch (error: any) {
 //     res.status(500).json({ message: 'Internal Server Error', error: error.message });
 //   }
