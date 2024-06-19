@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-
+import settingsRouter from './settings.route';
 import offreRouter from './offre.route';
 
 const get = (req: Request, res: Response) => {

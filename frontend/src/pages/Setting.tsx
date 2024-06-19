@@ -17,10 +17,10 @@ function Settings() {
         // if (!email) {
         //   throw new Error("User email is not available");
         // }
-        // const response = await authenticatedPost(token, "/settings", {
-        //   user,
-        // });
-        const response = await authenticatedGet(token, "api/private/settings");
+        const response = await authenticatedPost(token, "api/private/settings", {
+          user,
+        });
+        // const response = await authenticatedGet(token, "api/private/settings");
 
         // if (response[0] && response[0].date_naissance) {
         //   const dateObj = new Date(response[0].date_naissance);
@@ -30,7 +30,7 @@ function Settings() {
         //   throw new Error("Date of birth not found in response");
         // }
         setData(response);
-        console.log(response)
+        console.log(response);
       } catch (error) {
         setError(`Error from web service: ${error}`);
       } finally {
