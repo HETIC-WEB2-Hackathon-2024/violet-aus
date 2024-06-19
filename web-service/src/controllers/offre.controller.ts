@@ -93,7 +93,7 @@ export const getByFilters = async (req: Request, res: Response) => {
 
     const result = await offreRepository.findOffreByFilters(filters);
     const offres: Array<{ id: number, titre_emploi: string, entreprise: string, contrat: string, region: string}> = result.rows;
-
+    
     res
       .status(200)
       .json({ message: "Offres retrieved successfully", offres: offres });
