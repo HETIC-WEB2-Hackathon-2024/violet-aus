@@ -4,7 +4,7 @@ import offreRouter from "./offre.route";
 import dashboardRouter from "./dashboard.route";
 
 const get = (req: Request, res: Response) => {
-  res.status(200).json({ message: "Your in index private route" });
+  res.status(200).json({ message: 'Your in index private route' });
 };
 
 const router = Router();

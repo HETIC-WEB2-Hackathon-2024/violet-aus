@@ -14,12 +14,8 @@ import {
 
 const router = Router();
 
-router.post("/many", create);
-// router.get('/extend/:id', getByIdExtend);
-router.get("/:id", getById);
-router.get("/", getAll);
-router.post("/", validator(createOffreDto), createOne);
-router.patch("/:id", validator(updateOffreDto), updateById);
-router.delete("/:id", deleteById);
+router.get('/:id', getById)
+router.get('/', getAll);;
+router.post('/', validator(createOffreDto), createOne);
 
 export default router;

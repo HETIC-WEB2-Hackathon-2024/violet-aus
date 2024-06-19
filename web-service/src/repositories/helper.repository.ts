@@ -81,32 +81,34 @@ export default class HelperRepository {
   //   return query(queryString);
   // }
 
+
   async createOne(data: any): Promise<any> {
-    const keys: string = Object.keys(data).join(", ");
-    const valuesArray = Object.values(data);
-    const values: string = valuesArray.map((value) => `'${value}'`).join(", ");
+    const keys:string = Object.keys(data).join(', ');
+    const valuesArray  = Object.values(data)
+    const values:string = valuesArray.map((value) => `'${value}'`).join(', ');
 
     const sql = `INSERT INTO ${this.entity} (${keys}) VALUES (${values}) RETURNING *`;
-
+  
     const result = await query(sql);
     return result;
   }
 
   async create(datas: [any]): Promise<any> {
-    const keys: string = Object.keys(datas[0]).join(", ");
+    const keys:string = Object.keys(datas[0]).join(', ');
 
-    let values = "";
+    let values = '';
     datas.forEach((data, index) => {
-      const valuesArray = Object.values(data);
-      values += "(" + valuesArray.map((value) => `'${value}'`) + ")";
+
+      const valuesArray  = Object.values(data)
+      values += '(' + valuesArray.map((value) => `'${value}'`) +')';
 
       if (index < datas.length - 1) {
-        values += ", ";
+        values += ', ';
       }
     });
 
     const sql = `INSERT INTO ${this.entity} (${keys}) VALUES ${values} RETURNING *`;
-
+  
     const result = await query(sql);
     return result;
   }
@@ -119,13 +121,13 @@ export default class HelperRepository {
 
   async updateById(id: number, data: any): Promise<any> {
     const keys = Object.keys(data);
-    let values = "";
+    let values = '';
 
     keys.forEach((key, index) => {
       values += `${key} = '${data[key]}'`;
 
       if (index < keys.length - 1) {
-        values += ", ";
+        values += ', ';
       }
     });
 
