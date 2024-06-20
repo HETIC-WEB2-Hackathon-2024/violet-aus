@@ -1,8 +1,11 @@
 import { Button, Typography, Progress } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProgressBar() {
-  const [progress, setProgress] = useState(0);
+  const storedProgress = localStorage.getItem("progress");
+  const initialProgress =
+    storedProgress !== null ? parseInt(storedProgress) : 0;
+  const [progress, setProgress] = useState(initialProgress);
 
   const increaseProgress = () => {
     setProgress((prev) => (prev < 100 ? prev + 10 : prev));
@@ -12,8 +15,12 @@ export default function ProgressBar() {
     if (progress >= 10 && progress <= 30) return "red";
     if (progress >= 40 && progress <= 50) return "orange";
     if (progress >= 60 && progress <= 90) return "yellow";
-    if (progress == 100) return "green";
+    if (progress === 100) return "green";
   };
+
+  useEffect(() => {
+    localStorage.setItem("progress", progress.toString());
+  }, [progress]);
 
   return (
     <div className="w-3/4">
@@ -31,4 +38,3 @@ export default function ProgressBar() {
     </div>
   );
 }
-
