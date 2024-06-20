@@ -20,11 +20,11 @@ interface Option {
 
 export default class HelperRepository {
   private entity: string;
-  private fKey: { key: string; reference: string; columns: string[] }[];
+  private fKey?: { key: string; reference: string; columns: string[] }[];
 
   constructor(
     entity: string,
-    fKey: { key: string; reference: string; columns: string[] }[]
+    fKey?: { key: string; reference: string; columns: string[] }[]
   ) {
     this.entity = entity;
     this.fKey = fKey;
@@ -35,6 +35,8 @@ export default class HelperRepository {
     const result = await query(sql, [id]);
     return result;
   }
+
+
 
   // async findByIdExtend(id: number): Promise<any> {
 

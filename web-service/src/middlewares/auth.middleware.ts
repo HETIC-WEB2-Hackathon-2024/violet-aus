@@ -1,10 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
 import { auth } from 'express-oauth2-jwt-bearer';
+import Candidat from '../entities/Candidat.entity';
+import candidatRepository from '../repositories/candidat.repository';
 
+interface User {
+  id: string,
+  nom: string | null,
+  prenom: string | null,
+  telephone: string | null,
+  email: string,
+  pays: string,
+  date_naissance: Date,
+  login: string,
+  picture: string,
+  updated_at: Date,
+  email_verified: boolean
+}
 
 declare module 'express-serve-static-core' {
   interface Request {
-    user?: any;
+    user?: User;
   }
 }
 
@@ -37,7 +52,15 @@ const authMiddleware =  async (req: Request, res: Response, next: NextFunction) 
       }
 
       const userinfo = await userinfoResponse.json();
-      req.user = userinfo; 
+      const user = await candidatRepository.findByEmail(userinfo.email)
+
+      req.user = {
+        ...user.rows[0],
+        login: userinfo.name,
+        picture: userinfo.picture, 
+        updated_at: userinfo.updated_at,
+        email_verified: userinfo.email_verified,
+      };
       
       next();
 

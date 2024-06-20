@@ -42,6 +42,12 @@ const Carte = ({ className, ...props }: CarteProps) => {
           "lat": 48.54699,
           "lon": 7.62794,
           "country": "FR"
+        },
+        {
+          "name": "Entzheim",
+          "lat": 47.54699,
+          "lon": 7.62794,
+          "country": "FR"
         }
       ]
         
@@ -146,13 +152,16 @@ const Carte = ({ className, ...props }: CarteProps) => {
   }
 
   return (
+    <div>
     <HighchartsReact
-      highcharts={Highcharts}
-      constructorType={'mapChart'}
-      options={options}
-      ref={chartComponentRef}
-      {...props}
-    />
+    highcharts={Highcharts}
+    constructorType={'mapChart'}
+    options={options}
+    ref={chartComponentRef}
+    {...props}
+  />
+    </div>
+    
   );
 };
 

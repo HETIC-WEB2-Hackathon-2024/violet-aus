@@ -2,12 +2,12 @@ import { RouterProvider, createBrowserRouter, Outlet} from "react-router-dom";
 
 import "./index.css";
 import Home from "./pages/Home.tsx";
+import Page404 from "./pages/Page404"
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import { Authenticated } from "./auth/Authenticated";
 
-// import Page404 from "./pages/Page404.tsx"
 
 const router = createBrowserRouter([
   {
@@ -22,22 +22,25 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: <Dashboard/>,
       },
-      // {
-      //   path: "Offres",
-      //   element: <Offres />,
-      // },
-      // {
-      //   path: "Selection",
-      //   element: <Selection />,
-      // },
-      // {
-      //   path: "Parametres",
-      //   element: <Parametres />,
-      // },
-      // {
-      //   path: "Connexion",
-      //   element: <Connexion />,
-      // },
+      {
+        path: "offres",
+        element: <div>Offre</div>
+        // element: <Offres />,
+      },
+      {
+        path: "selection",
+        element: <div>Offre</div>
+        // element: <Selection />,
+      },
+      {
+        path: "parametres",
+        element: <div>Offre</div>
+        // element: <Parametres />,
+      },
+      {
+        path: "*",
+        element: <Page404 />,
+      },
     ],
   },
 ]);

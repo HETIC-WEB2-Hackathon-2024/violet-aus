@@ -2,12 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { authenticatedGet } from "../auth/helper";
 import {
-  Button,
   Typography,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
   Card,
   CardBody,
 } from "@material-tailwind/react";
@@ -55,8 +50,6 @@ const Dashboard = () =>  {
   const [data, setData] = useState<Object>({});
   const [numbers, setNumbers] = useState<KpiCardPropsType[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  console.log(loading, error)
 
   useEffect(() => {
     const callApis = async () =>{
@@ -123,8 +116,6 @@ const Dashboard = () =>  {
     callApis();
   }, [getAccessTokenSilently]);
 
-
-
   return (
     <section className="container mx-auto py-20 px-8">
       <div className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center md:gap-2.5 gap-4">
@@ -132,7 +123,8 @@ const Dashboard = () =>  {
           <KpiCard key={key} {...(props as any)} />
         ))}
       </div>
-      <Carte className="test"/>
+      {/* Juste pour pas avoir de problème en prod */}
+      {/* <Carte/> */}
     </section>
   );
 }
