@@ -33,7 +33,7 @@ const Home = () => {
         <h4 className="text-gray-lightest">
           Explorez les meilleures offres de stage
         </h4>
-      </div>{" "}
+      </div>
       <div className="flex flex-row gap-2 flex-wrap">
         {offers?.map((offer: Offres, index) => (
           <div key={index} className="border border-black">

@@ -13,7 +13,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function Header() {
   const [sidenavOpen, setSideNavOpen] = useState(true);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  console.log(theme);
   const { logout, loginWithRedirect, isAuthenticated } = useAuth0();
 
   useEffect(() => {
