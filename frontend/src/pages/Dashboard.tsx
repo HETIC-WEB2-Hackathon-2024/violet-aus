@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { authenticatedGet } from "../auth/helper";
-// import { Skeleton } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 const Dashboard = () => {
   const { getAccessTokenSilently } = useAuth0();
