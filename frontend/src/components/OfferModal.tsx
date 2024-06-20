@@ -1,4 +1,7 @@
-import React from "react";
+import { authenticatedGet } from "../auth/helper";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useState, useEffect } from "react";
+
 import {
   Button,
   Dialog,
@@ -8,61 +11,66 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-export function LongDialog() {
-  const [open, setOpen] = React.useState(false);
+interface OfferModalProps {
+  idOffer: number;
+  location?: string;
+}
+
+export function OfferModal({ idOffer, location }: OfferModalProps) {
+  const [open, setOpen] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
+  const [offer, setOffer] = useState();
 
   const handleOpen = () => setOpen(!open);
 
-  return (
+  useEffect(() => {
+    async function getOffer() {
+      try {
+        const token = await getAccessTokenSilently();
+        const response = await authenticatedGet(
+          token,
+          `/api/private/offre/${idOffer}`
+        );
+        const firstArray = response.offre;
+        setOffer(firstArray);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getOffer();
+  }, []);
+
+  return offer ? (
     <>
-      <Button onClick={handleOpen}>Long Dialog</Button>
+      <Button onClick={handleOpen} className="bg-primary-base_dark bg-none">
+        Voir Plus
+      </Button>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Long Dialog</DialogHeader>
-        <DialogBody className="h-[42rem] overflow-scroll">
-          <Typography className="font-normal">
-            I&apos;ve always had unwavering confidence in my abilities, and I
-            believe our thoughts and self-perception are the primary forces that
-            shape us. Many people limit themselves by their own self-doubt,
-            slowing their progress. Fortunately, I was raised with the belief
-            that I could achieve anything.
-            <br />
-            <br />
-            As we journey through life, we often encounter challenges that
-            harden our hearts. Pain, insults, broken trust, and betrayal can
-            make us hesitant to help others. Love can lead to heartbreak, and
-            time can distance us from family. These experiences can gradually
-            erode our optimism.
-            <br /> <br />
-            Life doesn&apos;t always place us where we want to be. We grow, make
-            mistakes, and strive to express ourselves and fulfill our dreams. If
-            we&apos;re fortunate enough to participate in life&apos;s journey,
-            we should cherish every moment. Regrettably, some only recognize the
-            value of a moment after it&apos;s passed.
-            <br /> <br />
-            One thing I&apos;ve learned is that I can excel at anything I set my
-            mind to. My skill is my ability to learn. I&apos;m here to learn, to
-            grow, and to inspire others to do the same. Don&apos;t fear making
-            mistakes; they teach us far more than compliments ever will.
-            Ultimately, what truly matters is how our actions inspire and
-            motivate others. Some will be ignited by our endeavors, while others
-            may be offended—it&apos;s all part of the process. I'm here to
-            pursue my dreams and encourage others to do the same.
-            <br /> <br />
-            Now is the time to embrace greatness without fear of judgment. Some
-            may resent those who shine brightly or stand out, but it&apos;s time
-            to be the best version of ourselves. Do you have faith in your
-            beliefs, even if you&apos;re the only one who does?
+        <DialogHeader className="font-bold">
+          {offer["titre_emploi"]}
+        </DialogHeader>
+        <DialogBody className="max-h-[70vh] overflow-scroll space-y-4">
+          <Typography className="font-normal font-">
+            {offer["entreprise"]}
           </Typography>
+          <Typography className="font-normal">{location}</Typography>
+          <Typography className="font-normal">{offer["contrat"]}</Typography>
+          <Typography className="font-">{offer["description"]}</Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">
-          <Button variant="text" color="blue-gray" onClick={handleOpen}>
-            cancel
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            confirm
+          <Button
+            className="bg-primary-base_dark bg-none"
+            variant="gradient"
+            // color="purple"
+            onClick={() => console.log("ui")}
+          >
+            J'ai candidaté
           </Button>
         </DialogFooter>
       </Dialog>
     </>
+  ) : (
+    <></>
   );
 }
