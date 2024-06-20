@@ -1,13 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { authenticatedGet } from "../auth/helper";
-import {
-  Typography,
-  Card,
-  CardBody,
-} from "@material-tailwind/react";
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import WorkIcon from '@mui/icons-material/Work';
+import { Typography, Card, CardBody } from "@material-tailwind/react";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import WorkIcon from "@mui/icons-material/Work";
 import Carte from "../components/Carte";
 
 interface KpiCardPropsType {
@@ -16,26 +12,16 @@ interface KpiCardPropsType {
   icon: React.ReactNode;
 }
 
-export function KpiCard({
-  title,
-  price,
-  icon,
-}: KpiCardPropsType) {
+export function KpiCard({ title, price, icon }: KpiCardPropsType) {
   return (
     <Card className="shadow-sm border border-gray-200 !rounded-lg">
       <CardBody className="p-4">
         <div className="flex justify-between items-center">
-          <Typography
-            className="!font-medium !text-xs text-gray-600 d"
-          >
+          <Typography className="!font-medium !text-xs text-gray-600 d">
             {icon} {title}
           </Typography>
-        
         </div>
-        <Typography
-          color="blue-gray"
-          className="mt-1 font-bold text-2xl"
-        >
+        <Typography color="blue-gray" className="mt-1 font-bold text-2xl">
           {price}
         </Typography>
       </CardBody>
@@ -43,80 +29,61 @@ export function KpiCard({
   );
 }
 
-
-const Dashboard = () =>  {
+const Dashboard = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<Object>({});
   const [numbers, setNumbers] = useState<KpiCardPropsType[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  data== true;
-  loading== true;
-  error== '';
+  data == true;
+  loading == true;
+  error == "";
 
   useEffect(() => {
-    const callApis = async () =>{
+    const callApis = async () => {
       try {
         const token = await getAccessTokenSilently();
-        const fetchData = await authenticatedGet(token, "/api/private/dashboard/"); // Generic api for acces to all datas
-        
-        // Save the datas 
-        setData(old => ({ ...old, ...fetchData }));
-        
-        // Custom kpi props with or data 
-        const KpiCardInfos  :KpiCardPropsType[] =[
+        const fetchData = await authenticatedGet(
+          token,
+          "/api/private/dashboard/"
+        ); // Generic api for acces to all datas
+
+        // Save the datas
+        setData((old) => ({ ...old, ...fetchData }));
+
+        // Custom kpi props with or data
+        const KpiCardInfos: KpiCardPropsType[] = [
           {
             title: "Nombre d'offres",
             price: `${fetchData.infos.allOffer}`,
-            icon: (
-              <TrendingUpIcon
-                strokeWidth={4}
-                className="w-3 h-3"
-              />
-            ),
+            icon: <TrendingUpIcon strokeWidth={4} className="w-3 h-3" />,
           },
           {
             title: "Nombre d'offres",
             price: `${fetchData.infos.offerByJob}`,
-            icon: (
-              <WorkIcon
-                strokeWidth={4}
-                className="w-3 h-3"
-              />
-            ),
+            icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
           },
           {
             title: "placholder",
             price: `Fake data`,
-            icon: (
-              <WorkIcon
-                strokeWidth={4}
-                className="w-3 h-3"
-              />
-            ),
+            icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
           },
           {
             title: "placholder",
             price: `Fake data`,
-            icon: (
-              <WorkIcon
-                strokeWidth={4}
-                className="w-3 h-3"
-              />
-            ),
-          }
+            icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
+          },
         ];
-      
-        setNumbers(KpiCardInfos);
 
+        setNumbers(KpiCardInfos);
       } catch (error: any) {
         setError(`Error from web service: ${error.message}`);
       } finally {
         setLoading(false);
       }
-    }
-    
+    };
+
     callApis();
   }, [getAccessTokenSilently]);
 
@@ -127,9 +94,9 @@ const Dashboard = () =>  {
           <KpiCard key={key} {...(props as any)} />
         ))}
       </div>
-      <Carte/>
+      <Carte />
     </section>
   );
-}
+};
 
 export default Dashboard;

@@ -1,54 +1,58 @@
-import { RouterProvider, createBrowserRouter, Outlet} from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 
 import "./index.css";
 import Home from "./pages/Home.tsx";
-import Page404 from "./pages/Page404"
+import Page404 from "./pages/Page404";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import Settings from "./pages/Setting.tsx";
 import { Authenticated } from "./auth/Authenticated";
-
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: "/manager",
-    element: <Authenticated><Layout /></Authenticated>,
+    element: (
+      <Authenticated>
+        <Layout />
+      </Authenticated>
+    ),
     children: [
       {
         path: "dashboard",
-        element: <Dashboard/>,
+        element: <Dashboard />,
       },
       {
         path: "offres",
-        element: <div>Offre</div>
+        element: <div>Offre</div>,
         // element: <Offres />,
       },
       {
         path: "selection",
-        element: <div>Offre</div>
+        element: <div>Offre</div>,
         // element: <Selection />,
       },
       {
         path: "parametres",
-        element: <div>Offre</div>
-        // element: <Parametres />,
+        // element: <div>Offre</div>,
+        element: <Settings />,
       },
       {
         path: "*",
         element: <Page404 />,
       },
     ],
-  }
+  },
 ]);
 
-const path = window.location.pathname
-if (path === '/manager' || path === '/manager/'){
-  console.log(window.location)
-  window.location.pathname = '/manager/dashboard'
+const path = window.location.pathname;
+if (path === "/manager" || path === "/manager/") {
+  console.log(window.location);
+  window.location.pathname = "/manager/dashboard";
 }
 
 function Layout() {

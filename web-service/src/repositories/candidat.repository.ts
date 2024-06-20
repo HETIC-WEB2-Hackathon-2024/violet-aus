@@ -11,6 +11,25 @@ class CandidatRepository extends HelperRepository {
     const result = await query(sql, [email]);
     return result;
   }
+
+  async updateCandidatByEmail(candidateInfo: any): Promise<any> {
+    const sql = `UPDATE candidat SET
+    nom = $1,
+    prenom = $2,
+    telephone = $3,
+    pays = $4,
+    date_naissance = $5
+    WHERE email = $6`;
+    const result = await query(sql, [
+      candidateInfo.lastname,
+      candidateInfo.firstname,
+      candidateInfo.telephone,
+      candidateInfo.country,
+      candidateInfo.birthday,
+      candidateInfo.email,
+    ]);
+    return result;
+  }
 }
 
 export default new CandidatRepository();
