@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       //   element: <Selection />,
       // },
       {
-        path: "Settings",
+        path: "parametres",
         element: <Settings />,
       },
       // {
