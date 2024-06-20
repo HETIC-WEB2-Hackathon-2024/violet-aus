@@ -9,8 +9,6 @@ import authMiddleware from "./middlewares/auth.middleware";
 const port = 3000;
 const app = express();
 
-// make sure we hare handling CORS properly
-// See more on CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 const corsOptions = {
   origin: ["http://localhost:5173", "https://violet.aus.floless.fr"],
 };
