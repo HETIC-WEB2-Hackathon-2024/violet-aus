@@ -8,13 +8,14 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Menus = [
-  { title: "Dashboard", icon: "Presentation_Chart", link: "/dashboard" },
-  { title: "Offres", icon: "Briefcase", link: "/offres" },
-  { title: "Ma sélection", icon: "Bookmark", link: "/selection" },
-  { title: "Paramètres", icon: "Params", link: "/parametres" },
-  { title: "Connexion", icon: "Connexion", link: "/connexion" },
+  { title: "Dashboard", icon: "Presentation_Chart", link: "/manager/dashboard" },
+  { title: "Offres", icon: "Briefcase", link: "/manager/offres" },
+  { title: "Ma sélection", icon: "Bookmark", link: "/manager/selection" },
+  { title: "Paramètres", icon: "Params", link: "/manager/parametres" },
+  // { title: "Deconnexion", icon: "Connexion", link: "/" , click: logoutAction },
 ];
 
 const icons: { [key: string]: string } = {
@@ -31,6 +32,8 @@ const icons: { [key: string]: string } = {
 
 export default function Header() {
   const [sidenavOpen, setSidenavOpen] = React.useState(true);
+  const { logout } = useAuth0();
+
   return (
     <Card
       className={` ${
@@ -101,6 +104,37 @@ export default function Header() {
               </Button>
             </Link>
           ))}
+
+          {/* Deconnexion Button, it's not a link  */}
+          <p onClick={()=>logout({ logoutParams: { returnTo: window.location.origin }})}>
+              <Button className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
+                <ListItemPrefix className="text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d={icons.Connexion}
+                    />
+                  </svg>
+                </ListItemPrefix>
+                <Typography
+                  variant="h5"
+                  color="white"
+                  className={`${
+                    !sidenavOpen && "hidden"
+                  } origin-left duration-200 ml-2`}
+                >
+                  Deconnexion
+                </Typography>
+              </Button>
+            </p>
         </List>
       ) : (
         <List className="gap-2">

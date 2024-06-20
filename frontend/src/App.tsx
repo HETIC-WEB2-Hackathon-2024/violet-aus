@@ -1,13 +1,21 @@
-import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Outlet} from "react-router-dom";
+
 import "./index.css";
+import Home from "./pages/Home.tsx";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import { Authenticated } from "./auth/Authenticated.tsx";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Home/>,
+  },
+  {
+    path: "/manager",
+    element: <Authenticated><Layout /></Authenticated>,
     children: [
       {
         path: "dashboard",
@@ -30,8 +38,14 @@ const router = createBrowserRouter([
       //   element: <Connexion />,
       // },
     ],
-  },
+  }
 ]);
+
+const path = window.location.pathname
+if (path === '/manager' || path === '/manager/'){
+  console.log(window.location)
+  window.location.pathname = '/manager/dashboard'
+}
 
 function Layout() {
   return (
