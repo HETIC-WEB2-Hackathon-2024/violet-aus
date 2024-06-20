@@ -3,40 +3,37 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
 } from "@material-tailwind/react";
+import { OfferModal } from "./OfferModal";
 
 interface SimpleCardProps {
   title?: string;
   enterprise?: string;
-  place?: string;
+  location?: string;
   contract?: string;
-  id: string;
+  id: number;
 }
 
 export function SimpleCard({
   title,
   enterprise,
-  place,
+  location,
   contract,
   id,
 }: SimpleCardProps) {
-  async function openOfferModal() {
-    console.error("test");
-  }
   return (
-    <Card className="mt-6 w-96" id={id} onClick={() => openOfferModal()}>
+    <Card className="mt-6 w-96" id={`offer-${id.toString()}`}>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {title}
         </Typography>
         <Typography>{enterprise}</Typography>
-        <Typography>{place}</Typography>
+        <Typography>{location}</Typography>
         <Typography>{contract}</Typography>
       </CardBody>
-      {/* <CardFooter className="pt-0">
-        <Button>Read More</Button>
-      </CardFooter> */}
+      <CardFooter className="pt-0">
+        <OfferModal idOffer={id} location={location} />
+      </CardFooter>
     </Card>
   );
 }
