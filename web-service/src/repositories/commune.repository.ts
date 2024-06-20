@@ -8,7 +8,7 @@ class CommuneRepository extends HelperRepository {
 
   async findAllDepartement() {
     return query(`
-      SELECT DISTINCT CONCAT(nom_region, ' (', code_departement, ')') AS region
+      SELECT DISTINCT CONCAT(nom_departement, ' (', code_departement, ')') AS region
       FROM commune
       ORDER BY region`);
   }
