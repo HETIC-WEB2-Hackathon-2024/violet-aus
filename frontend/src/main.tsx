@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { Authenticated } from "./auth/Authenticated.tsx";
 import { ThemeProvider } from "@material-tailwind/react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -10,13 +9,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     clientId="aJ7zv8SnWKNhg3y8NWVNitUPOhdTHg6Q"
     authorizationParams={{
       audience: "api.violet.aus.floless.fr",
-      redirect_uri: window.location.origin,
+      redirect_uri: window.location.origin + '/manager/dashboard',
     }}
   >
-    <Authenticated>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </Authenticated>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </Auth0Provider>
 );
