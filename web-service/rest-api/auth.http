@@ -30,21 +30,21 @@ Content-Type: application/json
 
 ### Offre 
 
-###
-# @name getOffreById
-GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14600
-Content-Type: application/json
-authorization: Bearer {{JWT}}
 
-###
-# @name getOffreByIdExtend
-GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/extend/14621
+# @name getOffreById
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/6
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
 # @name getAllOffre
 GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
+# @name getFilteredOffre
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre?titre_emploi=Dev
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
@@ -61,94 +61,17 @@ Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
+# @name getAllRegion
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/commune/
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
 # @name createOffre
 POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
-{
-  "secteur_id": 7,
-  "metier_id": 10,
-  "titre_emploi": "titre_emploi",
-  "entreprise": "entreprise",
-  "lieu": "lieu",
-  "description_courte": "description_courte",
-  "contrat": "contrat",
-  "type_contrat": "type_contrat",
-  "description": "description",
-  "commune_id": "80001"
-}
-
-###
-# @name createOffreMany
-POST {{protocol}}://{{host}}:{{portBack}}/api/private/offre/many
-Content-Type: application/json
-authorization: Bearer {{JWT}}
-
-[
-  {
-    "secteur_id": 7,
-    "metier_id": 10,
-    "titre_emploi": "titre_emploi",
-    "entreprise": "entreprise",
-    "lieu": "lieu",
-    "description_courte": "description_courte",
-    "contrat": "contrat",
-    "type_contrat": "type_contrat",
-    "description": "description",
-    "commune_id": "80001"
-  },
-  {
-    "secteur_id": 7,
-    "metier_id": 10,
-    "titre_emploi": "titre_emploi",
-    "entreprise": "entreprise",
-    "lieu": "lieu",
-    "description_courte": "description_courte",
-    "contrat": "contrat",
-    "type_contrat": "type_contrat",
-    "description": "description",
-    "commune_id": "80001"
-  }
-]
-
-###
-# @name deleteById
-DELETE  {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14623
-Content-Type: application/json
-authorization: Bearer {{JWT}}
-
-###
-# @name updateOffre
-PATCH {{protocol}}://{{host}}:{{portBack}}/api/private/offre/14621
-Content-Type: application/json
-authorization: Bearer {{JWT}}
-
-{
-  "secteur_id": 32,
-  "metier_id": 10,
-  "titre_emploi": "titre_emploiupdate"
-}
-
-###
-# @name getProfilInformations
-POST {{protocol}}://{{host}}:{{portBack}}/api/private/settings
-Content-Type: application/json
-authorization: Bearer {{JWT}}
-
-{
-  "email": "candidat30@aus.floless.fr"
-}
-
-###
-# @name test
-GET https://violet-aus.eu.auth0.com/userinfo
-Content-Type: application/json
-authorization: Bearer {{JWT}}
-
-### PUBLIC ###
-
-###
 
 ###
 GET {{protocol}}://{{host}}:{{portBack}}/api/public/offre/1
