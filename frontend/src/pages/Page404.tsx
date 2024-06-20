@@ -1,20 +1,20 @@
 import { Button, ListItemPrefix, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Page404() {
   return (
-    <div className="bg-gray-lightest min-h-screen flex items-center justify-center px-16">
+    <div className="bg-gray-lightest dark:bg-gray-700 min-h-screen flex items-center justify-center px-16">
       <div className="relative w-full max-w-lg">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-primary-light_white rounded-full mix-blend-multiply filter blur-xl opacity-75 animate-blob"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-secondary-light_white rounded-full mix-blend-multiply filter blur-xl opacity-75 animate-blob animation-delay-1500"></div>
-        <div className="absolute -bottom-20 left-24 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-75 animate-blob animation-delay-3000"></div>
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-primary-light_white dark:bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-75 animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-secondary-light_white dark:bg-yellow-800 rounded-full mix-blend-multiply filter blur-xl opacity-75 animate-blob animation-delay-1500"></div>
+        <div className="absolute -bottom-20 left-24 w-72 h-72 bg-pink-300 dark:bg-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-75 animate-blob animation-delay-3000"></div>
         <div className="m-8 relative space-y-4 ">
           <div className="flex flex-col items-center justify-center p-5 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-xl border border-none">
             <Typography
               color="black"
-              className="mb-4 text-gray-darkest dark:text-gray-lightest text-h3 font-black"
+              className="mb-4 text-gray-darkest dark:text-gray-lightest text-h4 font-black"
             >
-              OUPS !
+              OH LA CHKOUMOUNE !
             </Typography>
             <Typography className="mb-8 text-gray-darkest dark:text-gray-lightest text-h6 font-normal text-center">
               La page que vous recherchez semble introuvable :/

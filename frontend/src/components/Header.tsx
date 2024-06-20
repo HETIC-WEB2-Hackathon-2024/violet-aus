@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   Typography,
@@ -12,20 +12,23 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
   const [sidenavOpen, setSideNavOpen] = useState(true);
-  const [theme, setTheme] = useState("light");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { logout } = useAuth0();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const { logout, loginWithRedirect, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
   const toggleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
+      loginWithRedirect();
+    } else {
       logout({ logoutParams: { returnTo: window.location.origin } });
     }
   };
@@ -52,7 +55,7 @@ export default function Header() {
 
   const Menus = [
     {
-      title: "Expand",
+      title: "Réduire",
       icon: sidenavOpen ? "ExpandIn" : "ExpandOut",
       link: "",
       top: true,
@@ -61,13 +64,19 @@ export default function Header() {
     {
       title: "Dashboard",
       icon: "Presentation_Chart",
-      link: "/dashboard",
+      link: "/manager/dashboard",
+      top: true,
+    },
+    { title: "Offres", icon: "Briefcase", link: "/manager/offres", top: true },
+    {
+      title: "Ma sélection",
+      icon: "Bookmark",
+      link: "/manager/selection",
       top: true,
     },
     { title: "Offres", icon: "Briefcase", link: "/offres", top: true },
     { title: "Ma sélection", icon: "Bookmark", link: "/selection", top: true },
     { title: "ProgressBar", link: "/progressBar", top: true },
-
     {
       title: theme === "light" ? "Light Mode" : "Dark Mode",
       icon: theme === "light" ? "LightMode" : "DarkMode",
@@ -75,9 +84,14 @@ export default function Header() {
       top: false,
       isThemeToggle: true,
     },
-    { title: "Paramètres", icon: "Params", link: "/parametres", top: false },
     {
-      title: isLoggedIn ? "Connexion" : "Deconnexion",
+      title: "Paramètres",
+      icon: "Params",
+      link: "/manager/parametres",
+      top: false,
+    },
+    {
+      title: isAuthenticated ? "Deconnexion" : "Connexion",
       icon: "Connexion",
       link: "",
       top: false,
@@ -114,7 +128,7 @@ export default function Header() {
                   }
                 }}
               >
-                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark shadow-none">
+                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark shadow-none whitespace-nowrap">
                   <ListItemPrefix className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

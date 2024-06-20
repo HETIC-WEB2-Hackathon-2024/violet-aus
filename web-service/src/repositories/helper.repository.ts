@@ -20,11 +20,11 @@ interface Option {
 
 export default class HelperRepository {
   private entity: string;
-  private fKey: { key: string; reference: string; columns: string[] }[];
+  private fKey?: { key: string; reference: string; columns: string[] }[];
 
   constructor(
     entity: string,
-    fKey: { key: string; reference: string; columns: string[] }[]
+    fKey?: { key: string; reference: string; columns: string[] }[]
   ) {
     this.entity = entity;
     this.fKey = fKey;
@@ -36,48 +36,11 @@ export default class HelperRepository {
     return result;
   }
 
-  // async findByIdExtend(id: number): Promise<any> {
-
-  //   const join = this.fKey.map((foreignKey) => `LEFT JOIN ${foreignKey.reference} ON ${foreignKey.reference}.id = ${this.entity}.${foreignKey.key}')' `).join(' ')
-
-  // this.fKey.map((foreignKey) => {
-  //   values += `, JSON_BUILD_OBJECT(*) AS ${foreignKey.reference}`
-  // })
-
-  //     const values = this.fKey.map((foreignKey) => {
-  //       foreignKey.map((column)=>{ `${foreignKey.reference}
-
-  //       })
-
-  //     }
-  //       `, JSON_BUILD_OBJECT(${foreignKey.reference}.id, ${foreignKey.reference}.id, ${foreignKey.reference}.name, ${foreignKey.reference}.name) AS ${foreignKey.reference}`).join(' ');
-
-  //     console.log (join)
-  //     console.log (values)
-  //     const sql = `SELECT * ${values} FROM ${this.entity} ${join} WHERE id = $1`;
-
-  //     const result = await query(sql, [id]);
-  //     return result.rows[0];
-  // }
-
   async findAll(): Promise<any> {
-    // TO REMOVE: I set the limit for avoid to crash my localhost
     const sql = `SELECT * FROM ${this.entity} LIMIT 10`;
     const result = await query(sql);
     return result;
   }
-
-  // async findByOption(entity: string, option: Option): Promise<any> {
-  //   let queryString = `SELECT * FROM ${entity} WHERE `;
-  //   const filterKeys = Object.keys(option.filter);
-  //   filterKeys.forEach((key, index) => {
-  //     queryString += `${key} = '${option.filter[key]}'`;
-  //     if (index < filterKeys.length - 1) {
-  //       queryString += ' AND ';
-  //     }
-  //   });
-  //   return query(queryString);
-  // }
 
   async createOne(data: any): Promise<any> {
     const keys: string = Object.keys(data).join(", ");
