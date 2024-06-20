@@ -15,6 +15,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "*",
+    element: <Page404 />,
+  },
+  {
     path: "/manager",
     element: (
       <Authenticated>
@@ -40,10 +44,6 @@ const router = createBrowserRouter([
         path: "parametres",
         // element: <div>Offre</div>,
         element: <Settings />,
-      },
-      {
-        path: "*",
-        element: <Page404 />,
       },
     ],
   },
