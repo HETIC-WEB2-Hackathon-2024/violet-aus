@@ -34,7 +34,6 @@ export const updateProfilInformations = async (req: Request, res: Response) => {
       return;
     }
 
-    console.log("Update :", candidateInfo);
     const profilInfo = await CandidatRepository.updateCandidatByEmail(
       candidateInfo
     );
