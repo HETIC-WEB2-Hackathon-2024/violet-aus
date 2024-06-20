@@ -117,7 +117,7 @@ export default function OffersPage() {
             title={offer["titre_emploi"]}
             enterprise={offer["entreprise"]}
             contract={offer["contrat"]}
-            place={offer["region"]}
+            location={offer["region"]}
             id={offer["id"]}
           />
         ))}
@@ -125,7 +125,7 @@ export default function OffersPage() {
 
       <ButtonDefault
         className="w-auto rounded-none bg-primary-base_dark"
-        textContent={"Voir plus..."}
+        textContent={"Voir plus"}
         onClick={() => showMore()}
       />
     </div>
