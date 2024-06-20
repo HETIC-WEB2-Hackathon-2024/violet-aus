@@ -4,7 +4,7 @@ import Candidat from '../entities/Candidat.entity';
 import candidatRepository from '../repositories/candidat.repository';
 
 interface User {
-  id: string,
+  id: number,
   nom: string | null,
   prenom: string | null,
   telephone: string | null,
@@ -53,9 +53,9 @@ const authMiddleware =  async (req: Request, res: Response, next: NextFunction) 
 
       const userinfo = await userinfoResponse.json();
       const user = await candidatRepository.findByEmail(userinfo.email)
-
       req.user = {
         ...user.rows[0],
+        id: user.rows[0].id,
         login: userinfo.name,
         picture: userinfo.picture, 
         updated_at: userinfo.updated_at,
