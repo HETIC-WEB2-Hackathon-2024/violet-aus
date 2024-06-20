@@ -12,7 +12,13 @@ import { Authenticated } from "./auth/Authenticated";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+    ],
   },
   {
     path: "*",
@@ -60,7 +66,7 @@ function Layout() {
     <div className="flex h-screen">
       <Header />
       <div className="flex flex-col flex-1">
-        <main className="flex-1 p-4 bg-gray-lightest dark:bg-gray-base">
+        <main className="flex-1 p-4 bg-gray-lightest dark:bg-gray-base overflow-auto">
           <Outlet />
         </main>
         <Footer />

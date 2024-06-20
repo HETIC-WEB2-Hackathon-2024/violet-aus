@@ -13,19 +13,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function Header() {
   const [sidenavOpen, setSideNavOpen] = useState(true);
   const [theme, setTheme] = useState("light");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { logout } = useAuth0();
-
+  const { logout, loginWithRedirect, isAuthenticated } = useAuth0();
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
-
   const toggleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
+      loginWithRedirect();
+    } else {
       logout({ logoutParams: { returnTo: window.location.origin } });
     }
   };
@@ -52,7 +50,7 @@ export default function Header() {
 
   const Menus = [
     {
-      title: "Expand",
+      title: "Réduire",
       icon: sidenavOpen ? "ExpandIn" : "ExpandOut",
       link: "",
       top: true,
@@ -65,7 +63,12 @@ export default function Header() {
       top: true,
     },
     { title: "Offres", icon: "Briefcase", link: "/manager/offres", top: true },
-    { title: "Ma sélection", icon: "Bookmark", link: "/manager/selection", top: true },
+    {
+      title: "Ma sélection",
+      icon: "Bookmark",
+      link: "/manager/selection",
+      top: true,
+    },
     {
       title: theme === "light" ? "Light Mode" : "Dark Mode",
       icon: theme === "light" ? "LightMode" : "DarkMode",
@@ -73,9 +76,14 @@ export default function Header() {
       top: false,
       isThemeToggle: true,
     },
-    { title: "Paramètres", icon: "Params", link: "/manager/parametres", top: false },
     {
-      title: isLoggedIn ? "Connexion" : "Deconnexion",
+      title: "Paramètres",
+      icon: "Params",
+      link: "/manager/parametres",
+      top: false,
+    },
+    {
+      title: isAuthenticated ? "Deconnexion" : "Connexion",
       icon: "Connexion",
       link: "",
       top: false,
@@ -186,7 +194,7 @@ export default function Header() {
                 </Button>
               </Link>
             ))}
-        </List>
+          </List>
         </div>
       ) : (
         <div className="flex flex-col justify-between h-full">
