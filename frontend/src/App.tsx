@@ -4,6 +4,7 @@ import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Page404 from "./pages/Page404.tsx"
+import ProgressBar from "./components/ProgressBar.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard/>,
+      },
+      {
+        path: "progressBar",
+        element: <ProgressBar/>,
       },
       // {
       //   path: "Offres",
