@@ -3,6 +3,7 @@ import "./index.css";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import Page404 from "./pages/Page404.tsx"
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       //   element: <Connexion />,
       // },
     ],
+  },
+  {
+    path: "*",
+    element: <Page404 />,
   },
 ]);
 
