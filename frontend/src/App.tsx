@@ -1,4 +1,3 @@
-// import styled from "@emotion/styled";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 
 import "./index.css";
@@ -35,7 +34,6 @@ const router = createBrowserRouter([
       {
         path: "offres",
         element: <OffersPage />,
-        // element: <Offres />,
       },
       {
         path: "selection",
@@ -43,7 +41,6 @@ const router = createBrowserRouter([
       },
       {
         path: "parametres",
-        // element: <div>Offre</div>,
         element: <Settings />,
       },
     ],
