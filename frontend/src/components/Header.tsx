@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   Typography,
@@ -12,14 +12,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
   const [sidenavOpen, setSideNavOpen] = useState(true);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  console.log(theme);
   const { logout, loginWithRedirect, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
+
   const toggleLogin = () => {
     if (!isAuthenticated) {
       loginWithRedirect();
