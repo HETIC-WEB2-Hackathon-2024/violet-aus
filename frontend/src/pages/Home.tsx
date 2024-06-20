@@ -7,6 +7,7 @@ const Home = () =>  {
   return (
     <>
       <div>
+        THIS PAGE IT'S NOT FINISH
       </div>
       <Button onClick={()=>loginWithRedirect()} className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
         <ListItemPrefix className="text-white">
@@ -14,7 +15,7 @@ const Home = () =>  {
         </ListItemPrefix>
         <Typography
           variant="h5"
-          color="white"
+          color="black"
           className={`origin-left duration-200 ml-2`}
         >
           Connexion
