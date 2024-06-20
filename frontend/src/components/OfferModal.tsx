@@ -56,7 +56,9 @@ export function OfferModal({ idOffer, location }: OfferModalProps) {
           </Typography>
           <Typography className="font-normal">{location}</Typography>
           <Typography className="font-normal">{offer["contrat"]}</Typography>
-          <Typography className="font-">{offer["description"]}</Typography>
+          <Typography className="font-normal">
+            {offer["description"]}
+          </Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">
           <Button
