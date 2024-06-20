@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "offres",
-        element: <OffersPage />
+        element: <OffersPage />,
         // element: <Offres />,
       },
       {
@@ -58,7 +58,7 @@ if (path === "/manager" || path === "/manager/") {
 
 function Layout() {
   return (
-    <>
+    <div className="flex h-screen">
       <Header />
       <div className="flex flex-col flex-1">
         <main className="flex-1 p-4 bg-gray-lightest dark:bg-gray-base">
@@ -66,7 +66,7 @@ function Layout() {
         </main>
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 
