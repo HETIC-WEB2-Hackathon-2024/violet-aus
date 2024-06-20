@@ -50,8 +50,8 @@ export function Localist({
       />
 
       <datalist id="department">
-        {locations?.map((location) => (
-          <option value={location["region"]}></option>
+        {locations?.map((location, index) => (
+          <option key={index} value={location["region"]}></option>
         ))}
       </datalist>
     </div>
