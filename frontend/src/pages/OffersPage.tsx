@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { authenticatedGet } from "../auth/helper";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Localist } from "../components/Localist";
-import { list } from "@material-tailwind/react";
 
 export default function OffersPage() {
   const [count, setCount] = useState(15);
@@ -15,7 +14,6 @@ export default function OffersPage() {
     title: "",
     location: "",
   });
-  const [loading, setLoading] = useState(true);
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -51,7 +49,7 @@ export default function OffersPage() {
     });
   }
 
-  async function onOffersSearch(event: React.MouseEvent<HTMLButtonElement>) {
+  async function onOffersSearch() {
     try {
       const token = await getAccessTokenSilently();
       const response = await authenticatedGet(
@@ -71,13 +69,6 @@ export default function OffersPage() {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  async function changePage(event: React.MouseEvent<HTMLButtonElement>) {
-    try {
-      const token = await getAccessTokenSilently();
-      const response = await authenticatedGet(token, `/api/private/offre/`);
-    } catch (error) {}
   }
 
   return (
@@ -106,20 +97,20 @@ export default function OffersPage() {
         <ButtonDefault
           className={"w-auto rounded-none bg-primary-base_dark "}
           textContent={"Rechercher..."}
-          onClick={(event) => onOffersSearch(event)}
+          onClick={() => onOffersSearch()}
         />
       </div>
 
       <div className={"grid grid-cols-3 gap-12"}>
         {offers?.map((offer, index) => (
-            <SimpleCard
-              key={index}
-              title={offer["titre_emploi"]}
-              enterprise={offer["entreprise"]}
-              contract={offer["contrat"]}
-              location={offer["region"]}
-              id={offer["id"]}
-            />
+          <SimpleCard
+            key={index}
+            title={offer["titre_emploi"]}
+            enterprise={offer["entreprise"]}
+            contract={offer["contrat"]}
+            location={offer["region"]}
+            id={offer["id"]}
+          />
         ))}
       </div>
 
