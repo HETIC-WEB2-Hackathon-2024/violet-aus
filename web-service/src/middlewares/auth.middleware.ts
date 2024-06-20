@@ -12,7 +12,38 @@ const authMiddleware =  async (req: Request, res: Response, next: NextFunction) 
     if (err) {
       return res.status(401).json({ error: 'Unauthorized', message: 'Invalid or missing token' });
     }
-    next();
+
+    try {
+      const userinfoResponse = await fetch(
+        'https://violet-aus.eu.auth0.com/userinfo',
+        {
+          headers: {
+            Authorization: `Bearer ${req.auth?.token}`,
+          },
+        }
+      );
+
+      if (!userinfoResponse.ok) {
+        return res.status(401).json({ error: 'Unauthorized', message: 'Failed to fetch user info' });
+      }
+
+      const userinfo = await userinfoResponse.json();
+      const user = await candidatRepository.findByEmail(userinfo.email)
+
+      req.user = {
+        ...user.rows[0],
+        login: userinfo.name,
+        picture: userinfo.picture, 
+        updated_at: userinfo.updated_at,
+        email_verified: userinfo.email_verified,
+      };
+      
+      next();
+
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+      return res.status(500).json({ error: 'Internal Server Error', message: 'Failed to fetch user info' });
+    }
   });
 };
 export default authMiddleware;

@@ -8,13 +8,12 @@ import Highcharts from "highcharts/highmaps";
 const Carte = () => {
   const [data, setData] = useState<any>(null);
   const [map, setMap] = useState<any>(null);
-
-  data === true;
+  const [options, setOptions] = useState<any>(null);
 
   useEffect(()=>{
     (async () => {
       try {
-        const franceMap = await fetch('https://code.highcharts.com/mapdata/countries/fr/fr-all.geo.json').then(response => response.json());
+        const franceMap = await fetch('https://code.highcharts.com/mapdata/custom/europe.topo.json').then(response => response.json());
         // const franceMap = mapData
         // const offreData = await fetch('https://www.highcharts.com/samples/data/european-train-stations-near-airports.json').then(response => response.json());
         setMap(franceMap)
@@ -37,111 +36,112 @@ const Carte = () => {
     })()
   },[])
 
-  // Base options for the Highcharts map
-  const options = {
-    chart: {
-      map: map,
-    },
-    title: {
-      text: 'Nos Offres',
-      align: 'left',
-    },
-    mapNavigation: {
-      enabled: true,
-    },
-    tooltip: {
-      headerFormat: '',
-      pointFormat: '<b>{point.name}</b><br>Lat: {point.lat:.2f}, Lon: {point.lon:.2f}',
-    },
-    colorAxis: {
-      min: 0,
-      max: 20,
-    },
-    plotOptions: {
-      mappoint: {
-        cluster: {
-          enabled: true,
-          allowOverlap: false,
-          animation: {
-            duration: 450,
+  useEffect(()=>{
+    setOptions({
+      chart: {
+        map: map
+      },
+      title: {
+        text: 'Nos Offres',
+        align: 'left',
+      },
+      mapNavigation: {
+        enabled: true,
+      },
+      tooltip: {
+        headerFormat: '',
+        useHTML: true,
+        pointFormat: `<span class="flag {point.flag}">{point.name} {point.value}</span>`,
+        formatter: function () {
+          document.addEventListener('onClick', ()=> {
+            window.location.pathname = "/manager/offres/"
+          })
+          return
+        }
+      },
+      plotOptions: {
+        mappoint: {
+          cluster: {
+            enabled: true,
+            allowOverlap: false,
+            animation: {
+              duration: 450,
+            },
+            layoutAlgorithm: {
+              type: 'grid',
+              gridSize: 70,
+            },
+            zones: [{
+              from: 1,
+              to: 4,
+              marker: {
+                radius: 13,
+              },
+            }, {
+              from: 5,
+              to: 9,
+              marker: {
+                radius: 15,
+              },
+            }, {
+              from: 10,
+              to: 15,
+              marker: {
+                radius: 17,
+              },
+            }, {
+              from: 16,
+              to: 20,
+              marker: {
+                radius: 19,
+              },
+            }, {
+              from: 21,
+              to: 100,
+              marker: {
+                radius: 21,
+              },
+            }],
           },
-          layoutAlgorithm: {
-            type: 'grid',
-            gridSize: 70,
-          },
-          zones: [{
-            from: 1,
-            to: 4,
-            marker: {
-              radius: 13,
-            },
-          }, {
-            from: 5,
-            to: 9,
-            marker: {
-              radius: 15,
-            },
-          }, {
-            from: 10,
-            to: 15,
-            marker: {
-              radius: 17,
-            },
-          }, {
-            from: 16,
-            to: 20,
-            marker: {
-              radius: 19,
-            },
-          }, {
-            from: 21,
-            to: 100,
-            marker: {
-              radius: 21,
-            },
-          }],
         },
       },
-    },
-    series: [
-      {
-        type: 'map',
-        mapData: map,
-        name: 'France',
-        borderColor: '#A0A0A0',
-        nullColor: 'rgba(177, 244, 177, 0.5)'
-      }, 
-      {
-        type: 'mappoint',
-        name: 'Train Stations',
-        data: [
-          {
-            "name": "Entzheim",
-            "lat": 48.54699,
-            "lon": 7.62794,
-            "country": "FR"
-          }, {
-            "name": "Aéroport Paris Roissy Charles de Gaulle CDG",
-            "lat": 49.00412433626132,
-            "lon": 2.5707364082336426,
-            "country": "FR"
-          }
-        ],
-        colorKey: 'clusterPointsAmount',
-        marker: {
-          lineWidth: 1,
-          lineColor: '#fff',
-          symbol: 'circle',
-          radius: 8,
+      series: [ 
+        {
+          name: 'Europe',
+          accessibility: {
+              exposeAsGroupOnly: true
+          },
+          borderColor: 'rgba(104, 74, 138, 0.1)',
+          nullColor: 'rgba(104, 74, 138, 0.5)',
+          showInLegend: false
         },
-        dataLabels: {
-          enabled: true,
-          format: '{point.name}',
-          align: 'center',
-        },
-      }
-    ],
-  };
+        {
+            type: 'mappoint',
+            enableMouseTracking: true,
+            accessibility: {
+                point: {
+                    descriptionFormat: '{#if isCluster}' +
+                            'Grouping of {clusterPointsAmount} points.' +
+                            '{else}' +
+                            '{name}, country code: {country}.' +
+                            '{/if}'
+                }
+            },
+            colorKey: 'clusterPointsAmount',
+            name: 'Offres',
+            data: data,
+            color: '#684a8a',
+            marker: {
+                symbol: 'mapmarker',
+                radius: 8
+            },
+            dataLabels: {
+                verticalAlign: 'top'
+            }
+        }
+      ]
+    });
+  }, [data, map])
 
 
   if (!options) {
