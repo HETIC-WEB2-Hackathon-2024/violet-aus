@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         element: <Page404 />,
       },
     ],
-  },
+  }
 ]);
 
 const path = window.location.pathname
