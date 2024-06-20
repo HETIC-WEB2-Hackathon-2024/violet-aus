@@ -1,0 +1,57 @@
+import { useEffect, useState } from "react";
+import { authenticatedGet } from "../auth/helper";
+import { useAuth0 } from "@auth0/auth0-react";
+
+interface DatalistProps {
+  className: string;
+  list: string;
+  name: string;
+  type: string;
+  placeholder: string;
+}
+
+export function Localist({
+  className,
+  list,
+  name,
+  type,
+  placeholder,
+}: DatalistProps) {
+  const { getAccessTokenSilently } = useAuth0();
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    async function getLocations() {
+      try {
+        const token = await getAccessTokenSilently();
+        const response = await authenticatedGet(token, "/api/private/commune/");
+        const firstArray = response.communes;
+        setLocations(firstArray);
+        console.log(firstArray);
+        return response;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getLocations();
+  }, []);
+
+  return (
+    <div>
+      <input
+        className={className}
+        list={list}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+      />
+
+      <datalist id="department">
+        {locations?.map((location) => (
+          <option key={location["region"]} value={location["region"]}></option>
+        ))}
+      </datalist>
+    </div>
+  );
+}
