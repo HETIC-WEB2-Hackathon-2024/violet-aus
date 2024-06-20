@@ -5,9 +5,9 @@ import Home from "./pages/Home.tsx";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
-import { Authenticated } from "./auth/Authenticated.tsx";
+import { Authenticated } from "./auth/Authenticated";
 
-import Page404 from "./pages/Page404.tsx"
+// import Page404 from "./pages/Page404.tsx"
 
 const router = createBrowserRouter([
   {

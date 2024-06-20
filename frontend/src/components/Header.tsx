@@ -61,11 +61,11 @@ export default function Header() {
     {
       title: "Dashboard",
       icon: "Presentation_Chart",
-      link: "/dashboard",
+      link: "/manager/dashboard",
       top: true,
     },
-    { title: "Offres", icon: "Briefcase", link: "/offres", top: true },
-    { title: "Ma sélection", icon: "Bookmark", link: "/selection", top: true },
+    { title: "Offres", icon: "Briefcase", link: "/manager/offres", top: true },
+    { title: "Ma sélection", icon: "Bookmark", link: "/manager/selection", top: true },
     {
       title: theme === "light" ? "Light Mode" : "Dark Mode",
       icon: theme === "light" ? "LightMode" : "DarkMode",
@@ -73,7 +73,7 @@ export default function Header() {
       top: false,
       isThemeToggle: true,
     },
-    { title: "Paramètres", icon: "Params", link: "/parametres", top: false },
+    { title: "Paramètres", icon: "Params", link: "/manager/parametres", top: false },
     {
       title: isLoggedIn ? "Connexion" : "Deconnexion",
       icon: "Connexion",
@@ -82,8 +82,6 @@ export default function Header() {
       isLogin: true,
     },
   ];
-
-  const { logout } = useAuth0();
 
   return (
     <Card
@@ -188,37 +186,6 @@ export default function Header() {
                 </Button>
               </Link>
             ))}
-  
-          {/* Deconnexion Button, it's not a link  */}
-          <p onClick={()=>logout({ logoutParams: { returnTo: window.location.origin }})}>
-              <Button className="flex items-center gap-3 w-full bg-primary-base hover:bg-primary-dark focus:bg-primary-light shadow-none">
-                <ListItemPrefix className="text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d={icons.Connexion}
-                    />
-                  </svg>
-                </ListItemPrefix>
-                <Typography
-                  variant="h5"
-                  color="white"
-                  className={`${
-                    !sidenavOpen && "hidden"
-                  } origin-left duration-200 ml-2`}
-                >
-                  Deconnexion
-                </Typography>
-              </Button>
-            </p>
         </List>
         </div>
       ) : (
