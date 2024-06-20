@@ -7,16 +7,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Localist } from "../components/Localist";
 import { list } from "@material-tailwind/react";
 
-interface SearchBarData {
-  jobTitle: string;
-  jobPlace: string;
-}
-
 export default function OffersPage() {
+  const [count, setCount] = useState(15);
+  const [allOfferArray, setAllOfferArray] = useState([]);
   const { getAccessTokenSilently } = useAuth0();
   const [formData, setFormData] = useState({
     title: "",
-    place: "",
+    location: "",
   });
   const [loading, setLoading] = useState(true);
   const [offers, setOffers] = useState([]);
@@ -26,10 +23,10 @@ export default function OffersPage() {
       try {
         const token = await getAccessTokenSilently();
         const response = await authenticatedGet(token, "/api/private/offre/");
-        // setOffers(response.offres);
-        const firstArray = response.offres.slice(0, 15);
+        const firstArray = response.offres.slice(0, count);
+        const firstEntireArray = response.offres;
+        setAllOfferArray(firstEntireArray);
         setOffers(firstArray);
-        console.log(firstArray);
         return response;
       } catch (error) {
         console.error(error);
@@ -39,36 +36,52 @@ export default function OffersPage() {
     getOffers();
   }, []);
 
-  function inputTyping(event: React.ChangeEvent<HTMLInputElement>) {
+  function showMore() {
+    setCount(() => {
+      const newCount = count + 15;
+      setOffers(allOfferArray.slice(0, newCount));
+      return newCount;
+    });
+  }
+
+  function inputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   }
 
-  async function onClickTest(event: React.MouseEvent<HTMLInputElement>) {
+  async function onOffersSearch(event: React.MouseEvent<HTMLButtonElement>) {
     try {
       const token = await getAccessTokenSilently();
       const response = await authenticatedGet(
         token,
         `/api/private/offre/?titre_emploi=${encodeURIComponent(
           formData.title
-        )}&region=${encodeURIComponent(formData.place)}`
+        )}&region=${encodeURIComponent(formData.location)}`
       );
-
-      // const data = await response.json();
-      console.log(response);
+      setCount(() => {
+        const newCount = 15;
+        const entireUpdatedArray = response.offres;
+        const updatedArray = response.offres.slice(0, newCount);
+        setAllOfferArray(entireUpdatedArray);
+        setOffers(updatedArray);
+        return newCount;
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
-  function test() {
-    console.log("Yo");
+  async function changePage(event: React.MouseEvent<HTMLButtonElement>) {
+    try {
+      const token = await getAccessTokenSilently();
+      const response = await authenticatedGet(token, `/api/private/offre/`);
+    } catch (error) {}
   }
 
   return (
-    <div className={"flex flex-col items-center"}>
+    <div className={"flex flex-col items-center gap-12"}>
       <div className="flex justify-center my-12">
         <div className="flex border-2 border-primary-base_dark">
           <SearchBar
@@ -77,46 +90,23 @@ export default function OffersPage() {
             className={
               "w-[420px] h-12 outline-none border-primary-base_dark px-4 border-r-2"
             }
-            onChange={(event) => inputTyping(event)}
+            onChange={(event) => inputChange(event)}
           />
 
           <Localist
             className={"h-full outline-none px-4 border-r-2"}
             list={"department"}
-            name={"department-choice"}
+            name={"location"}
             type={"text"}
             placeholder={"Département"}
+            onChange={(event) => inputChange(event)}
           />
-
-          {/* <div>
-            <input
-              className="h-full outline-none px-4 border-r-2"
-              list="department"
-              type="text"
-              name="department-choice"
-              id="department-choice"
-            />
-
-            <datalist id="department">
-              {offers?.map((offer, index) => (
-                <option key={index} value={offer["lieu"]}>
-                  {offer["region"]}
-                </option>
-              ))}
-            </datalist>
-          </div> */}
-          {/* <SearchBar
-            name="place"
-            placeholder="Entrez la localisation..."
-            className="w-60 h-12 outline-none px-4 border-r-2"
-            onChange={(event) => inputTyping(event)}
-          /> */}
         </div>
 
         <ButtonDefault
           className={"w-auto rounded-none bg-primary-base_dark "}
           textContent={"Rechercher..."}
-          onClick={() => onClickTest()}
+          onClick={(event) => onOffersSearch(event)}
         />
       </div>
 
@@ -128,10 +118,16 @@ export default function OffersPage() {
             enterprise={offer["entreprise"]}
             contract={offer["contrat"]}
             place={offer["region"]}
-            onClick={() => test()}
+            id={offer["id"]}
           />
         ))}
       </div>
+
+      <ButtonDefault
+        className="w-auto rounded-none bg-primary-base_dark"
+        textContent={"Voir plus..."}
+        onClick={() => showMore()}
+      />
     </div>
   );
 }
