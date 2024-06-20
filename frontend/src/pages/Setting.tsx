@@ -16,7 +16,7 @@ function Settings() {
     firstname: data?.prenom || "",
     telephone: data?.telephone || "",
     country: data?.pays || "",
-    birthday: data?.birthday || "",
+    birthday: dateOfBirth || "",
     email: data?.email || "",
   });
 
@@ -30,7 +30,14 @@ function Settings() {
 
         const dateObj = new Date(response.user.date_naissance);
         if (!isNaN(dateObj.getTime())) {
-          const formattedDate = dateObj.toISOString().split("T")[0];
+          const formatDate = (dateStr: any) => {
+            const date = new Date(dateStr);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+          };
+          const formattedDate = formatDate(response.user.date_naissance);
           setDateOfBirth(formattedDate);
         } else {
           throw new Error("Invalid date format");
