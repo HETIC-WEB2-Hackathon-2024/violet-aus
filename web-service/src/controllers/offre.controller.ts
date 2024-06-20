@@ -16,9 +16,6 @@ export const getById = async (req: Request, res: Response) => {
     res
       .status(500)
       .json({ message: "Internal Server Error", error: error.message });
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 

@@ -30,9 +30,9 @@ Content-Type: application/json
 
 ### Offre 
 
-###
+
 # @name getOffreById
-GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/2
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre/6
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 

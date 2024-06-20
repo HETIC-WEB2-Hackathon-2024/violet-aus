@@ -4,7 +4,7 @@ import Candidat from '../entities/Candidat.entity';
 import candidatRepository from '../repositories/candidat.repository';
 
 interface User {
-  id: string,
+  id: number,
   nom: string | null,
   prenom: string | null,
   telephone: string | null,
@@ -37,37 +37,39 @@ const authMiddleware =  async (req: Request, res: Response, next: NextFunction) 
       return res.status(401).json({ error: 'Unauthorized', message: 'Invalid or missing token' });
     }
 
-    try {
-      const userinfoResponse = await fetch(
-        'https://violet-aus.eu.auth0.com/userinfo',
-        {
-          headers: {
-            Authorization: `Bearer ${req.auth?.token}`,
-          },
-        }
-      );
 
-      if (!userinfoResponse.ok) {
-        return res.status(401).json({ error: 'Unauthorized', message: 'Failed to fetch user info' });
+    fetch('https://violet-aus.eu.auth0.com/userinfo',
+      {
+        headers: {
+          Authorization: `Bearer ${req.auth?.token}`,
+        },
       }
+    )
+    .then((res)=> {
+      if (!res.ok) {
+        throw new Error('')
+      }
+      return res.json()
+    })
+    .then(async (res)=>{
+      const user = await candidatRepository.findByEmail(res.email)
 
-      const userinfo = await userinfoResponse.json();
-      const user = await candidatRepository.findByEmail(userinfo.email)
-
+      if (!user.rows[0].id){
+        console.error('User not found in the database')
+      }
+  
       req.user = {
         ...user.rows[0],
-        login: userinfo.name,
-        picture: userinfo.picture, 
-        updated_at: userinfo.updated_at,
-        email_verified: userinfo.email_verified,
-      };
-      
+        login: res.name,
+        picture: res.picture, 
+        updated_at: res.updated_at,
+        email_verified: res.email_verified,
+      }
+    }).catch((err)=>{
+      console.log('res not ok')
+    }).finally(()=>{
       next();
-
-    } catch (error) {
-      console.error('Error fetching user info:', error);
-      return res.status(500).json({ error: 'Internal Server Error', message: 'Failed to fetch user info' });
-    }
+    });
   });
 };
 

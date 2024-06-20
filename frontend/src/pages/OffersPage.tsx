@@ -112,14 +112,14 @@ export default function OffersPage() {
 
       <div className={"grid grid-cols-3 gap-12"}>
         {offers?.map((offer, index) => (
-          <SimpleCard
-            key={index}
-            title={offer["titre_emploi"]}
-            enterprise={offer["entreprise"]}
-            contract={offer["contrat"]}
-            location={offer["region"]}
-            id={offer["id"]}
-          />
+            <SimpleCard
+              key={index}
+              title={offer["titre_emploi"]}
+              enterprise={offer["entreprise"]}
+              contract={offer["contrat"]}
+              location={offer["region"]}
+              id={offer["id"]}
+            />
         ))}
       </div>
 

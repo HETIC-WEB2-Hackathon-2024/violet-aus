@@ -12,7 +12,7 @@ const app = express();
 // make sure we hare handling CORS properly
 // See more on CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://violet.aus.floless.fr"],
 };
 
 app.use(cors(corsOptions));
@@ -20,14 +20,6 @@ app.use(express.json());
 app.use(errorHandler);
 
 app.use("/api/public", publicRoutes);
-
-// const jwtCheck = auth({
-//   audience: "api.aus.floless.fr",
-//   issuerBaseURL: "https://adopte-un-stagiaire.eu.auth0.com/",
-//   tokenSigningAlg: "RS256",
-// });
-// // enforce that all incoming requests are authenticated
-// app.use(jwtCheck);
 
 app.use("/api/private", authMiddleware, privateRoutes);
 
