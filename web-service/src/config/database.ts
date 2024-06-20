@@ -13,19 +13,25 @@ process.on("exit", function () {
 });
 
 /**
- * Sends SQL statement to the database and returns the result
+ * Sends SQL statement to the database with parameters and returns the result
  * @param sqlStatement a string containing the SQL statement
- * @returns an array of rows
+ * @param params an array containing the parameters for the prepared statement
+ * @returns an object with rows and query information
  */
-export async function query(sqlStatement: string): Promise<any[]> {
-  let rows = [];
+export async function query(sqlStatement: string, params: any[] = []): Promise<{ rows: any[], rowCount: number | null, command: string }> {
   const client = await pool.connect();
-  const response = await client.query(sqlStatement, []);
-  rows = response.rows;
-  client.release();
-  return rows;
+  try {
+    const response = await client.query(sqlStatement, params);
+    return {
+      rows: response.rows,
+      rowCount: response.rowCount,
+      command: response.command,
+    };
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  } finally {
+    client.release();
+  }
 }
 
-export function getFirstOffres(count: number = 3): Promise<any[]> {
-  return query(`SELECT * FROM offre LIMIT ${count}`);
-}

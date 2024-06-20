@@ -2,9 +2,9 @@ export default class Secteur {
   private id: number;
   private secteur: string;
 
-  constructor(id: number, secteur: string) {
-    this.id = id;
-    this.secteur = secteur;
+  constructor(data: {id: number, secteur: string}) {
+    this.id = data.id;
+    this.secteur = data.secteur;
   }
 
   getId(): number {
