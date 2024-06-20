@@ -8,6 +8,7 @@ import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Settings from "./pages/Setting.tsx";
 import { Authenticated } from "./auth/Authenticated";
+import OffersPage from "./pages/OffersPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,17 +33,14 @@ const router = createBrowserRouter([
       },
       {
         path: "offres",
-        element: <div>Offre</div>,
-        // element: <Offres />,
+        element: <OffersPage />,
       },
       {
         path: "selection",
-        element: <div>Offre</div>,
         // element: <Selection />,
       },
       {
         path: "parametres",
-        // element: <div>Offre</div>,
         element: <Settings />,
       },
     ],
