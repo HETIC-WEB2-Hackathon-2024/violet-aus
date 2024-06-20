@@ -1,41 +1,42 @@
-// import { useAuth0 } from "@auth0/auth0-react";
-// import { Box } from "@mui/material";
-// import React from "react";
-// import { authenticatedGet } from "../auth/helper";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+import { authenticatedGet } from "../auth/helper";
+import { Skeleton } from "@mui/material";
 
-// export function Dashboard() {
-//   const { getAccessTokenSilently } = useAuth0();
-//   const [loading, setLoading] = React.useState(true);
-//   const [data, setData] = React.useState<any[] | null>(null);
-//   const [error, setError] = React.useState<string | null>(null);
-//   React.useEffect(() => {
-//     async function callApi() {
-//       try {
-//         const token = await getAccessTokenSilently();
-//         const document = await authenticatedGet(token, "/v1/offres");
-//         setData(document);
-//       } catch (error) {
-//         setError(`Error from web service: ${error}`);
-//       } finally {
-//         setLoading(false);
-//       }
-//     }
-//     callApi();
-//   }, []);
+const Dashboard = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-//   return loading ? (
-//     <Box>chargement...</Box>
-//   ) : (
-//     <Box>
-//       {error ? (
-//         `Dashboard: response from API (with auth) ${error}`
-//       ) : (
-//         <ol>
-//           {data?.map((offre: any) => (
-//             <li key={offre.id}>{offre.titre_emploi}</li>
-//           ))}
-//         </ol>
-//       )}
-//     </Box>
-//   );
-// }
+  useEffect(() => {
+    async function callApi() {
+      try {
+        const token = await getAccessTokenSilently();
+        const document = await authenticatedGet(token, "/");
+        setData(document);
+      } catch (error) {
+        setError(`Error from web service: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    }
+    callApi();
+  }, []);
+  
+  let content = <div>Page not found</div>
+  if(loading){
+    content = <Skeleton variant="rounded" animation="wave" width="100%" height="100%"/>
+  } else {
+    content = <div>else</div>
+  }
+
+
+  return (
+    <section className="flex justify-center items-center h-full w-full">
+      {content}
+    </section>
+  )
+}
+
+export default Dashboard

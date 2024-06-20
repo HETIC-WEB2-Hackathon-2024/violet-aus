@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import "./index.css";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
+import Page404 from "./pages/Page404.tsx";
 import Settings from "./pages/Setting.tsx";
 
 const router = createBrowserRouter([
@@ -9,10 +11,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      // {
-      //   path: "Dashboard",
-      //   element: <Dashboard />,
-      // },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
       // {
       //   path: "Offres",
       //   element: <Offres />,
@@ -21,15 +23,19 @@ const router = createBrowserRouter([
       //   path: "Selection",
       //   element: <Selection />,
       // },
-       {
-         path: "Settings",
-         element: <Settings />,
-       },
+      {
+        path: "Settings",
+        element: <Settings />,
+      },
       // {
       //   path: "Connexion",
       //   element: <Connexion />,
       // },
     ],
+  },
+  {
+    path: "*",
+    element: <Page404 />,
   },
 ]);
 
@@ -38,7 +44,7 @@ function Layout() {
     <div className="flex h-screen">
       <Header />
       <div className="flex flex-col flex-1">
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-4 bg-gray-lightest dark:bg-gray-base">
           <Outlet />
         </main>
         <Footer />
