@@ -1,42 +1,55 @@
-import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Outlet} from "react-router-dom";
+
 import "./index.css";
+import Home from "./pages/Home.tsx";
+import Page404 from "./pages/Page404"
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
-import Page404 from "./pages/Page404.tsx"
+import { Authenticated } from "./auth/Authenticated";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Home/>,
+  },
+  {
+    path: "/manager",
+    element: <Authenticated><Layout /></Authenticated>,
     children: [
       {
         path: "dashboard",
         element: <Dashboard/>,
       },
-      // {
-      //   path: "Offres",
-      //   element: <Offres />,
-      // },
-      // {
-      //   path: "Selection",
-      //   element: <Selection />,
-      // },
-      // {
-      //   path: "Parametres",
-      //   element: <Parametres />,
-      // },
-      // {
-      //   path: "Connexion",
-      //   element: <Connexion />,
-      // },
+      {
+        path: "offres",
+        element: <div>Offre</div>
+        // element: <Offres />,
+      },
+      {
+        path: "selection",
+        element: <div>Offre</div>
+        // element: <Selection />,
+      },
+      {
+        path: "parametres",
+        element: <div>Offre</div>
+        // element: <Parametres />,
+      },
+      {
+        path: "*",
+        element: <Page404 />,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <Page404 />,
-  },
+  }
 ]);
+
+const path = window.location.pathname
+if (path === '/manager' || path === '/manager/'){
+  console.log(window.location)
+  window.location.pathname = '/manager/dashboard'
+}
 
 function Layout() {
   return (
