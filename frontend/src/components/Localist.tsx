@@ -8,6 +8,7 @@ interface DatalistProps {
   name: string;
   type: string;
   placeholder: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function Localist({
@@ -16,6 +17,7 @@ export function Localist({
   name,
   type,
   placeholder,
+  onChange,
 }: DatalistProps) {
   const { getAccessTokenSilently } = useAuth0();
   const [locations, setLocations] = useState([]);
@@ -27,7 +29,6 @@ export function Localist({
         const response = await authenticatedGet(token, "/api/private/commune/");
         const firstArray = response.communes;
         setLocations(firstArray);
-        console.log(firstArray);
         return response;
       } catch (error) {
         console.error(error);
@@ -45,11 +46,12 @@ export function Localist({
         name={name}
         type={type}
         placeholder={placeholder}
+        onChange={(event) => onChange(event)}
       />
 
       <datalist id="department">
         {locations?.map((location) => (
-          <option key={location["region"]} value={location["region"]}></option>
+          <option value={location["region"]}></option>
         ))}
       </datalist>
     </div>
