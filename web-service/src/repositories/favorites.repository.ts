@@ -3,7 +3,7 @@ import { query } from '../config/database';
 
 class FavoriteRepository extends HelperRepository {
   constructor() {
-    super('candidat_favorites');
+    super('candidat_favorites', []);
   }
 
 }
