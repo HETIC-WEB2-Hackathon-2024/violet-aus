@@ -1,6 +1,7 @@
 import { authenticatedGet } from "../auth/helper";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect } from "react";
+import ProgressBar from "./ProgressBar";
 
 import {
   Button,
@@ -17,6 +18,7 @@ interface OfferModalProps {
 }
 
 export function OfferModal({ idOffer, location }: OfferModalProps) {
+  const [openAlert, setOpenAlert] = useState<boolean>(true);
   const [open, setOpen] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
   const [offer, setOffer] = useState();
@@ -61,14 +63,15 @@ export function OfferModal({ idOffer, location }: OfferModalProps) {
           </Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">
-          <Button
+          {/* <Button
             className="bg-primary-base_dark bg-none"
             variant="gradient"
             // color="purple"
             onClick={() => console.log("ui")}
           >
             J'ai candidaté
-          </Button>
+          </Button> */}
+          <ProgressBar openAlert={openAlert} setOpenAlert={setOpenAlert} />
         </DialogFooter>
       </Dialog>
     </>

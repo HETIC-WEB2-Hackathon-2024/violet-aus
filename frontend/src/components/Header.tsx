@@ -74,9 +74,6 @@ export default function Header() {
       link: "/manager/selection",
       top: true,
     },
-    { title: "Offres", icon: "Briefcase", link: "/offres", top: true },
-    { title: "Ma sélection", icon: "Bookmark", link: "/selection", top: true },
-    { title: "ProgressBar", link: "/progressBar", top: true },
     {
       title: theme === "light" ? "Light Mode" : "Dark Mode",
       icon: theme === "light" ? "LightMode" : "DarkMode",
