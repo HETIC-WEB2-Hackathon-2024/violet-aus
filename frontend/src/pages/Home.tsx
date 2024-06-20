@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { SimpleCard } from "../components/SimpleCard";
 
 interface Offres {
   id: number;
   titre_emploi?: string;
   entreprise?: string;
-  lieu?: string;
+  region?: string;
   contrat?: string;
-  description_courte?: string;
 }
 const Home = () => {
   const [offers, setOffers] = useState<Offres[] | []>([]);
@@ -32,26 +32,19 @@ const Home = () => {
           Explorez les meilleures offres de stage
         </h4>
       </div>
-      <div className="flex flex-row gap-2 flex-wrap">
-        {offers?.map((offer: Offres, index) => (
-          <div key={index} className="border border-black">
-            <p className="text-gray-darkest dark:text-gray-lightest">
-              {offer.titre_emploi}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
-              {offer.entreprise}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
-              {offer.lieu}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
-              {offer.contrat}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
-              {offer.description_courte}
-            </p>
-          </div>
-        ))}
+      <div className={"flex flex-col items-center gap-12"}>
+        <div className={"grid grid-cols-3 gap-12"}>
+          {offers?.map((offer, index) => (
+            <SimpleCard
+              key={index}
+              title={offer.titre_emploi}
+              enterprise={offer.entreprise}
+              contract={offer.contrat}
+              location={offer.region}
+              id={offer.id}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
