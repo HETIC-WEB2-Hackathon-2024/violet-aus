@@ -51,6 +51,10 @@ const Dashboard = () =>  {
   const [numbers, setNumbers] = useState<KpiCardPropsType[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  data== true;
+  loading== true;
+  error== '';
+
   useEffect(() => {
     const callApis = async () =>{
       try {
@@ -123,8 +127,7 @@ const Dashboard = () =>  {
           <KpiCard key={key} {...(props as any)} />
         ))}
       </div>
-      {/* Juste pour pas avoir de problème en prod */}
-      {/* <Carte/> */}
+      <Carte/>
     </section>
   );
 }
