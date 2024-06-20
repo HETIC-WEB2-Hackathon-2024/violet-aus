@@ -112,7 +112,7 @@ export default function Header() {
                   }
                 }}
               >
-                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark shadow-none">
+                <Button className="flex items-center gap-3 w-full bg-primary-base_white dark:bg-primary-base_dark hover:bg-primary-dark_white dark:hover:bg-primary-dark_dark focus:bg-primary-light_white dark:focus:bg-primary-light_dark shadow-none whitespace-nowrap">
                   <ListItemPrefix className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
