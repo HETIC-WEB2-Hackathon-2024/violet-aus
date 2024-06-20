@@ -11,7 +11,7 @@ interface SimpleCardProps {
   enterprise?: string;
   place?: string;
   contract?: string;
-  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+  id: string;
 }
 
 export function SimpleCard({
@@ -19,10 +19,13 @@ export function SimpleCard({
   enterprise,
   place,
   contract,
-  onClick,
+  id,
 }: SimpleCardProps) {
+  async function openOfferModal() {
+    console.error("test");
+  }
   return (
-    <Card className="mt-6 w-96" onClick={(event) => onClick(event)}>
+    <Card className="mt-6 w-96" id={id} onClick={() => openOfferModal()}>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {title}
