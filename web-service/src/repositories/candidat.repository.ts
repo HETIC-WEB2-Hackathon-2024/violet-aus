@@ -19,7 +19,7 @@ class CandidatRepository extends HelperRepository {
     telephone = $3,
     pays = $4,
     date_naissance = $5
-    WHERE email = $6'`;
+    WHERE email = $6`;
     const result = await query(sql, [
       candidateInfo.lastname,
       candidateInfo.firstname,

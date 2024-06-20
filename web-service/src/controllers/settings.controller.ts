@@ -15,9 +15,7 @@ export const getProfilInformations = async (req: Request, res: Response) => {
 
     const userinfo = await userinfoResponse.json();
 
-    const profilInfo = await CandidatRepository.getCandidatByEmail(
-      userinfo.email
-    );
+    const profilInfo = await CandidatRepository.findByEmail(userinfo.email);
 
     res.status(200).json({ message: "Ok", user: profilInfo.rows[0] });
   } catch (error) {

@@ -133,6 +133,7 @@ function Settings() {
               className="dark:bg-gray-dark dark:text-gray-lightest opacity-80 dark:opacity-60"
               readOnly
               crossOrigin=""
+              color="purple"
             />
             <Input
               id="lastname"
@@ -142,6 +143,7 @@ function Settings() {
               onChange={(event) => handleChange("lastname", event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
+              color="purple"
             />
             <Input
               id="firstname"
@@ -151,6 +153,7 @@ function Settings() {
               onChange={(event) => handleChange("firstname", event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
+              color="purple"
             />
             <Input
               id="telephone"
@@ -160,6 +163,7 @@ function Settings() {
               onChange={(event) => handleChange("telephone", event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
+              color="purple"
             />
             <Input
               id="country"
@@ -169,6 +173,7 @@ function Settings() {
               onChange={(event) => handleChange("country", event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
+              color="purple"
             />
             <Input
               id="birthday"
@@ -179,6 +184,7 @@ function Settings() {
               onChange={(event) => handleChange("birthday", event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
+              color="purple"
             />
             <CardFooter className="pt-0">
               <Button

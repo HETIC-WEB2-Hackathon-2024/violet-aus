@@ -38,8 +38,8 @@ const router = createBrowserRouter([
       },
       {
         path: "parametres",
-        element: <div>Offre</div>,
-        // element: <Parametres />,
+        // element: <div>Offre</div>,
+        element: <Settings />,
       },
       {
         path: "*",
