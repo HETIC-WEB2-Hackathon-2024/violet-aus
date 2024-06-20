@@ -155,3 +155,10 @@ GET {{protocol}}://{{host}}:{{portBack}}/api/public/offre/1
 Content-Type: application/json
 authorization: Bearer {{JWT}}
 
+### PUBLIC ###
+
+###
+
+###
+GET https://code.highcharts.com/mapdata/countries/fr/fr-all.topo.json
+Content-Type: application/json

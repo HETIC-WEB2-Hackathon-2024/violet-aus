@@ -61,11 +61,11 @@ export default function Header() {
     {
       title: "Dashboard",
       icon: "Presentation_Chart",
-      link: "/dashboard",
+      link: "/manager/dashboard",
       top: true,
     },
-    { title: "Offres", icon: "Briefcase", link: "/offres", top: true },
-    { title: "Ma sélection", icon: "Bookmark", link: "/selection", top: true },
+    { title: "Offres", icon: "Briefcase", link: "/manager/offres", top: true },
+    { title: "Ma sélection", icon: "Bookmark", link: "/manager/selection", top: true },
     {
       title: theme === "light" ? "Light Mode" : "Dark Mode",
       icon: theme === "light" ? "LightMode" : "DarkMode",
@@ -73,7 +73,7 @@ export default function Header() {
       top: false,
       isThemeToggle: true,
     },
-    { title: "Paramètres", icon: "Params", link: "/parametres", top: false },
+    { title: "Paramètres", icon: "Params", link: "/manager/parametres", top: false },
     {
       title: isLoggedIn ? "Connexion" : "Deconnexion",
       icon: "Connexion",
@@ -186,7 +186,7 @@ export default function Header() {
                 </Button>
               </Link>
             ))}
-          </List>
+        </List>
         </div>
       ) : (
         <div className="flex flex-col justify-between h-full">

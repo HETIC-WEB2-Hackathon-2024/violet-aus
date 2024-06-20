@@ -1,20 +1,33 @@
+import HelperRepository from "./helper.repository";
 import { query } from "../config/database";
 
-class CandidatRepository {
-  async getCandidatByEmail(email: string): Promise<any> {
-    const sql = `SELECT * FROM candidat WHERE email = '${email}'`;
-    const result = await query(sql);
+class CandidatRepository extends HelperRepository {
+  constructor() {
+    super("candidat");
+  }
+
+  async findByEmail(email: string): Promise<any> {
+    const sql = `SELECT * FROM candidat WHERE email = $1`;
+    const result = await query(sql, [email]);
     return result;
   }
+
   async updateCandidatByEmail(candidateInfo: any): Promise<any> {
     const sql = `UPDATE candidat SET
-    nom = '${candidateInfo.lastname}',
-    prenom = '${candidateInfo.firstname}',
-    telephone = '${candidateInfo.telephone}',
-    pays = '${candidateInfo.country}',
-    date_naissance = '${candidateInfo.birthday}'
-    WHERE email = '${candidateInfo.email}'`;
-    const result = await query(sql);
+    nom = $1,
+    prenom = $2,
+    telephone = $3,
+    pays = $4,
+    date_naissance = $5
+    WHERE email = $6'`;
+    const result = await query(sql, [
+      candidateInfo.lastname,
+      candidateInfo.firstname,
+      candidateInfo.telephone,
+      candidateInfo.country,
+      candidateInfo.birthday,
+      candidateInfo.email,
+    ]);
     return result;
   }
 }
