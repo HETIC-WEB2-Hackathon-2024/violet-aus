@@ -65,9 +65,14 @@ const Dashboard = () => {
             icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
           },
           {
-            title: "placholder",
-            price: `Fake data`,
-            icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
+            title: "Entreprise participante",
+            price: `${fetchData.infos.nbrEntreprise}`,
+            icon: (
+              <WorkIcon
+                strokeWidth={4}
+                className="w-3 h-3"
+              />
+            ),
           },
           {
             title: "placholder",
