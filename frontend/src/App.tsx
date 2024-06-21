@@ -56,7 +56,6 @@ const router = createBrowserRouter([
 
 const path = window.location.pathname;
 if (path === "/manager" || path === "/manager/") {
-  console.log(window.location);
   window.location.pathname = "/manager/dashboard";
 }
 

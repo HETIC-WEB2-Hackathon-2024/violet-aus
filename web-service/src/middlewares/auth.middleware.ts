@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import { auth } from "express-oauth2-jwt-bearer";
+import { auth } from 'express-oauth2-jwt-bearer';
+import { Request, Response, NextFunction } from 'express';
 
 const jwtCheck = auth({
   audience: "api.violet.aus.floless.fr",
@@ -18,7 +18,6 @@ const authMiddleware = async (
         .status(401)
         .json({ error: "Unauthorized", message: "Invalid or missing token" });
     }
-
     next();
   });
 };
