@@ -28,6 +28,14 @@ class CustomRepository {
 
     return result;
   }
+
+  async lastOffer(): Promise<any> {
+    const sql = `select titre_emploi, lieu, entreprise, contrat, id from offre order by id desc limit 10`;
+    const result = await query(sql);
+
+    return result;
+  }
+
 }
 
 export default new CustomRepository();

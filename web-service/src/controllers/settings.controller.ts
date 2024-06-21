@@ -4,7 +4,6 @@ import CandidatRepository from "../repositories/candidat.repository";
 export const getProfilInformations = async (req: Request, res: Response) => {
   try {
     const profilInfo = await CandidatRepository.findByEmail(req.user.email);
-    console.log(profilInfo)
 
     res.status(200).json({ message: "Ok", user: profilInfo.rows[0] });
   } catch (error) {
