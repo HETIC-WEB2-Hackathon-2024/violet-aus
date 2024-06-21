@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     const callApis = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/public/offre");
+        const response = await fetch("https://api.violet.aus.floless.fr/api/public/offre");
         const data = await response.json();
         const firstArray = data.offres.slice(0, count);
         const firstEntireArray = data.offres;
