@@ -31,7 +31,7 @@ export default function Favorites() {
     getFavoritesOffers();
   }, []);
 
-  async function onClickTest(favorite_id: number) {
+  async function RemoveFavorite(favorite_id: number) {
     try {
       const token = await getAccessTokenSilently();
       const response = await authenticatedGet(
@@ -71,7 +71,7 @@ export default function Favorites() {
               {offer.description_courte}
             </p>
             <Button
-              onClick={() => onClickTest(offer.id)}
+              onClick={() => RemoveFavorite(offer.id)}
               className="bg-transparent soffer.idhadow-none hover:shadow-none flex items-center gap-3 p-2"
             >
               <img src="/star_filled.svg" alt="Logo" className="w-6 " />

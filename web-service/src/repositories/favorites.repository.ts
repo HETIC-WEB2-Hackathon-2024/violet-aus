@@ -30,6 +30,12 @@ class FavoriteRepository extends HelperRepository {
     const result = await query(sql, [favorite_id, candidat_id]);
     return result;
   }
+
+  async addFavorite(offre_id: number, candidat_id: number): Promise<any> {
+    const sql = `INSERT INTO candidat_favorites (favorite_id, candidat_id) VALUES $1, $2 RETURNING *`;
+    const result = await query(sql, [offre_id, candidat_id]);
+    return result;
+  }
 }
 
 export default new FavoriteRepository();
