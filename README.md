@@ -46,7 +46,7 @@ Suivez les étapes suivantes pour exécuter le projet localement :
 > [!IMPORTANT]
 > 2 méthodes pour lancer le back et le front
 
-  - 1. **Via un script:**
+  - 1 **Via un script:**
 
   Rendez-vous à la racine du projet
 
@@ -61,7 +61,7 @@ Suivez les étapes suivantes pour exécuter le projet localement :
   ./setup.sh all
    ```
 ##
-  - 2. **Via npm:**
+  - 2 **Via npm:**
 
     - 1. Rendez-vous dans le dossier `frontend`:
       ```bash
@@ -89,7 +89,7 @@ Suivez les étapes suivantes pour exécuter le projet localement :
 
 ##
 
-- 3. **Lancer la base de données:**
+- 3 **Lancer la base de données:**
 
   - 1. Dans une autre fenêtre du terminal rendez vous sur le dossier `aus-database` puis dans `postgresql`
   ```bash
