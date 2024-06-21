@@ -143,14 +143,6 @@ export function OfferModal({ idOffer, location }: OfferModalProps) {
           ) : (
             ""
           )}
-          <Button
-            className="bg-primary-base_dark bg-none"
-            variant="gradient"
-            // color="purple"
-            onClick={() => console.log("ui")}
-          >
-            J'ai candidaté
-          </Button>
         </DialogFooter>
         <DialogFooter className="space-x-2">
           {alreadyApplied ? (
