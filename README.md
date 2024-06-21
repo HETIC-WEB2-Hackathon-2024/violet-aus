@@ -61,26 +61,16 @@ Suivez les étapes suivantes pour exécuter le projet localement :
   ./setup.sh all
    ```
 ##
-  - 2 **Via npm:**
+  - 2 **Via Docker:**
 
-    - 1. Rendez-vous dans le dossier `frontend`:
+    - 1. Rendez-vous à la racine du projet:
       ```bash
-        cd violet-aus/frontend
+        cd violet-aus
         ```
 
-    - 2. Executez cette commande:
+    - 2. Executez les containers:
       ```bash
-        npm run dev
-         ```
-
-    - 3. dans une autre fenêtre du terminal rendez vous dans le dossier `web-service`:
-      ```bash
-        cd violet-aus/web-service
-        ```
-
-    - 4. Executez cette commande:
-      ```bash
-        npm run dev
+        docker compose up -d
          ```
 
 ## Après cela: 
