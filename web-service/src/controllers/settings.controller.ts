@@ -3,19 +3,7 @@ import CandidatRepository from "../repositories/candidat.repository";
 
 export const getProfilInformations = async (req: Request, res: Response) => {
   try {
-    const token = req.auth?.token;
-    const userinfoResponse = await fetch(
-      "https://violet-aus.eu.auth0.com/userinfo",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const userinfo = await userinfoResponse.json();
-
-    const profilInfo = await CandidatRepository.findByEmail(userinfo.email);
+    const profilInfo = await CandidatRepository.findByEmail(req.user.email);
 
     res.status(200).json({ message: "Ok", user: profilInfo.rows[0] });
   } catch (error) {
@@ -27,6 +15,7 @@ export const getProfilInformations = async (req: Request, res: Response) => {
 export const updateProfilInformations = async (req: Request, res: Response) => {
   try {
     const { candidateInfo } = req.body;
+
     if (!candidateInfo) {
       res.status(400).send({ error: "Candidate's informations are required" });
       return;

@@ -5,6 +5,7 @@ import { Typography, Card, CardBody } from "@material-tailwind/react";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import WorkIcon from "@mui/icons-material/Work";
 import Carte from "../components/Carte";
+import { SimpleCard } from "../components/SimpleCard";
 
 interface KpiCardPropsType {
   title: string;
@@ -12,16 +13,27 @@ interface KpiCardPropsType {
   icon: React.ReactNode;
 }
 
+interface LastOfferItem {
+  titre_emploi: string;
+  entreprise: string;
+  contrat: string;
+  lieu: string;
+  id: number;
+}
+
 export function KpiCard({ title, price, icon }: KpiCardPropsType) {
   return (
-    <Card className="shadow-sm border border-gray-200 !rounded-lg">
-      <CardBody className="p-4">
-        <div className="flex justify-between items-center">
-          <Typography className="!font-medium !text-xs text-gray-600 d">
+    <Card className="shadow-sm border border-primary-light_white dark:border-primary-light_dark !rounded-lg mb-4">
+      <CardBody className="p-4 bg-gray-lightest dark:bg-gray-darkest !rounded-lg flex justify-between">
+        <div>
+          <Typography className="!font-medium !text-xs text-gray-darkest dark:text-gray-lightest">
             {icon} {title}
           </Typography>
         </div>
-        <Typography color="blue-gray" className="mt-1 font-bold text-2xl">
+        <Typography
+          color="blue-gray"
+          className="mt-1 font-bold text-2xl text-gray-darkest dark:text-gray-lightest"
+        >
           {price}
         </Typography>
       </CardBody>
@@ -32,7 +44,7 @@ export function KpiCard({ title, price, icon }: KpiCardPropsType) {
 const Dashboard = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<Object>({});
+  const [data, setData] = useState<any>();
   const [numbers, setNumbers] = useState<KpiCardPropsType[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,7 +62,7 @@ const Dashboard = () => {
         ); // Generic api for acces to all datas
 
         // Save the datas
-        setData((old) => ({ ...old, ...fetchData }));
+        setData(fetchData.infos);
 
         // Custom kpi props with or data
         const KpiCardInfos: KpiCardPropsType[] = [
@@ -65,13 +77,8 @@ const Dashboard = () => {
             icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
           },
           {
-            title: "placholder",
-            price: `Fake data`,
-            icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
-          },
-          {
-            title: "placholder",
-            price: `Fake data`,
+            title: "Entreprise participante",
+            price: `${fetchData.infos.nbrEntreprise}`,
             icon: <WorkIcon strokeWidth={4} className="w-3 h-3" />,
           },
         ];
@@ -89,12 +96,25 @@ const Dashboard = () => {
 
   return (
     <section className="container mx-auto py-20 px-8">
-      <div className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center md:gap-2.5 gap-4">
+      <div className="mt-6 grid grid-cols-[auto_auto_auto] items-center md:gap-2.5 gap-4">
         {numbers.map((props, key) => (
           <KpiCard key={key} {...(props as any)} />
         ))}
       </div>
       <Carte />
+
+      <div className={"grid grid-cols-3 gap-12"}>
+        {data?.lastOffer?.map((lastOfferItem: LastOfferItem, index: number) => (
+          <SimpleCard
+            key={index}
+            title={lastOfferItem.titre_emploi}
+            enterprise={lastOfferItem.entreprise}
+            contract={lastOfferItem.contrat}
+            location={lastOfferItem.lieu}
+            id={lastOfferItem.id}
+          />
+        ))}
+      </div>
     </section>
   );
 };

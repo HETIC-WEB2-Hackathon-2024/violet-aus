@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import Settings from "./pages/Setting.tsx";
 import { Authenticated } from "./auth/Authenticated";
 import OffersPage from "./pages/OffersPage.tsx";
+import Favorites from "./pages/Favorites.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "selection",
-        // element: <Selection />,
+        element: <Favorites />,
       },
       {
         path: "parametres",
@@ -55,7 +56,6 @@ const router = createBrowserRouter([
 
 const path = window.location.pathname;
 if (path === "/manager" || path === "/manager/") {
-  console.log(window.location);
   window.location.pathname = "/manager/dashboard";
 }
 

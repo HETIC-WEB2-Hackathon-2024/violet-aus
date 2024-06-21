@@ -109,7 +109,6 @@ function Settings() {
       const response = await authenticatedPost(token, "api/private/settings", {
         candidateInfo,
       });
-      console.log(response);
     } catch (error) {
       setError(`Error from web service: ${error}`);
     } finally {
