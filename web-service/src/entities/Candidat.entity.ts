@@ -1,28 +1,30 @@
 export default class Candidat {
   private id: number;
-  private nom: string;
-  private prenom: string;
-  private telephone: string;
+  private nom?: string;
+  private prenom?: string;
+  private telephone?: string;
   private email: string;
   private pays: string;
   private date_naissance: Date;
 
-  constructor(
-    id: number,
-    nom: string,
-    prenom: string,
-    telephone: string,
-    email: string,
-    pays: string,
-    date_naissance: Date
+  constructor( data: 
+    {
+      id: number,
+      nom?: string,
+      prenom?: string,
+      telephone?: string,
+      email: string,
+      pays: string,
+      date_naissance: Date
+    }
   ) {
-    this.id = id;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.telephone = telephone;
-    this.email = email;
-    this.pays = pays;
-    this.date_naissance = date_naissance;
+    this.id = data.id;
+    this.nom = data.nom;
+    this.prenom = data.prenom;
+    this.telephone = data.telephone;
+    this.email = data.email;
+    this.pays = data.pays;
+    this.date_naissance = data.date_naissance;
   }
 
   getId(): number {
@@ -33,7 +35,7 @@ export default class Candidat {
     this.id = id;
   }
 
-  getNom(): string {
+  getNom(): string | undefined{
     return this.nom;
   }
 
@@ -41,7 +43,7 @@ export default class Candidat {
     this.nom = nom;
   }
 
-  getPrenom(): string {
+  getPrenom(): string | undefined {
     return this.prenom;
   }
 
@@ -49,7 +51,7 @@ export default class Candidat {
     this.prenom = prenom;
   }
 
-  getTelephone(): string {
+  getTelephone(): string | undefined {
     return this.telephone;
   }
 

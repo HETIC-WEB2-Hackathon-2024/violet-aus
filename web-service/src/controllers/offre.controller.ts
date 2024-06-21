@@ -78,6 +78,35 @@ export const deleteById = async (req: Request, res: Response) => {
   }
 };
 
+export const getByFilters = async (req: Request, res: Response) => {
+  try {
+    const filters: { titre_emploi?: string; region?: string } = {};
+    if (req.query.titre_emploi) {
+      filters.titre_emploi = decodeURIComponent(<string>req.query.titre_emploi);
+    }
+    if (req.query.region) {
+      filters.region = decodeURIComponent(<string>req.query.region);
+    }
+
+    const result = await offreRepository.findOffreByFilters(filters);
+    const offres: Array<{
+      id: number;
+      titre_emploi: string;
+      entreprise: string;
+      contrat: string;
+      region: string;
+    }> = result.rows;
+
+    res
+      .status(200)
+      .json({ message: "Offres retrieved successfully", offres: offres });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 export const updateById = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -94,17 +123,3 @@ export const updateById = async (req: Request, res: Response) => {
       .json({ message: "Internal Server Error", error: error.message });
   }
 };
-
-// export const getByIdExtend = async (req: Request, res: Response) => {
-//   try {
-//     const id = parseInt(req.params.id, 10);
-
-//     const result = await offreRepository.findByIdExtend(id);
-//     const offre: Offre = new Offre(result.rows[0])
-
-//     res.status(200).json({ message: 'Offre retrieved successfully', offre: offre });
-
-//   } catch (error: any) {
-//     res.status(500).json({ message: 'Internal Server Error', error: error.message });
-//   }
-// };

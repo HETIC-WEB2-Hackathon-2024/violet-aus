@@ -1,7 +1,7 @@
 import { Button, ListItemPrefix, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Page404() {
   return (
     <div className="bg-gray-lightest dark:bg-gray-700 min-h-screen flex items-center justify-center px-16">
       <div className="relative w-full max-w-lg">
@@ -12,9 +12,9 @@ export default function Header() {
           <div className="flex flex-col items-center justify-center p-5 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-xl border border-none">
             <Typography
               color="black"
-              className="mb-4 text-gray-darkest dark:text-gray-lightest text-h3 font-black"
+              className="mb-4 text-gray-darkest dark:text-gray-lightest text-h4 font-black"
             >
-              OUPS !
+              OH LA CHKOUMOUNE !
             </Typography>
             <Typography className="mb-8 text-gray-darkest dark:text-gray-lightest text-h6 font-normal text-center">
               La page que vous recherchez semble introuvable :/
