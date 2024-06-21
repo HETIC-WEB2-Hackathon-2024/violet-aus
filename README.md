@@ -1,57 +1,93 @@
 # Adopte un stagiaire
 
+### ℹ️ Description
 
-# auth
+Ce projet a pour but de développer une application web pour que des candidats trouvent des stages en
+entreprise.
 
-<!-- Configure the Auth0Provider component -->
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Auth0Provider } from '@auth0/auth0-react';
-import App from './App';
+### Équipe
+- [heitzjulien](https://github.com/heitzjulien)
+- [Kobrae-San](https://github.com/Kobrae-San)
+- [LineinLove](https://github.com/LinelinLove)
+- [Nyoote](https://github.com/Nyoote)
+- [ValentinMachefaux](https://github.com/ValentinMachefaux)
+- [j-renevier](https://github.com/j-renevier)
+- [MattisAvec2T](https://github.com/MattisAvec2T)
+- [FlowXII](https://github.com/FlowXII)
 
-const root = createRoot(document.getElementById('root'));
 
-root.render(
-<Auth0Provider
-    domain="violet-aus.eu.auth0.com"
-    clientId="aJ7zv8SnWKNhg3y8NWVNitUPOhdTHg6Q"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-  >
-    <App />
-  </Auth0Provider>,
-);
+## Getting started
 
-<!-- Add Login to Your Application -->
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+### ⚙️ Prerequisites
 
-const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
+Assurez-vous que les éléments suivants sont installés avant de poursuivre :
 
-  return <button onClick={() => loginWithRedirect()}>Log In</button>;
-};
+- [Node.js](https://nodejs.org/en) (v21)
+- [npm](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/products/docker-desktop/) pour Windows / [Orbstack](https://orbstack.dev/) pour Mac
 
-<!-- Add Logout to Your Application -->
+### 🚦 Run the project
 
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+Suivez les étapes suivantes pour exécuter le projet localement :
 
-const LogoutButton = () => {
-  const { logout } = useAuth0();
+1. **Cloner les depôts:**
 
-  return (
-    <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+   ```bash
+   git clone https://github.com/HETIC-WEB2-Hackathon-2024/violet-aus.git
+   git clone https://github.com/HETIC-WEB2-Hackathon-2024/aus-database.git
+   ```
+  > [!NOTE]
+> `violet-aus` correspond à l'application, `aus-database` correspond à la base de données
 
-    onClick={() =>logout({ logoutParams: { returnTo: window.location.origin } }) }
 
-      Log Out
-    </button>
-  );
-};
 
-export default LogoutButton;
+2. **Lancer le projet:**
 
-# Problem create offre 
-SELECT setval('offre_id_seq', (SELECT MAX(id) FROM public.offre));
+> [!IMPORTANT]
+> 2 méthodes pour lancer le back et le front
+
+  - 1 **Via un script:**
+
+  Rendez-vous à la racine du projet
+
+   ```bash
+   cd violet-aus
+   ```
+
+  Executez ce script
+
+   ```bash
+  chmod +x setup.sh
+  ./setup.sh all
+   ```
+##
+  - 2 **Via Docker:**
+
+    - 1. Rendez-vous à la racine du projet:
+      ```bash
+        cd violet-aus
+        ```
+
+    - 2. Executez les containers:
+      ```bash
+        docker compose up -d
+         ```
+
+## Après cela: 
+- Le front devrait être disponible sur le port `5173` et accessible via [http://localhost:5173](http://localhost:5173).
+- Le back devrait etre disponible sur le port `3000` et accessible via [http://localhost:3000](http://localhost:3000).
+
+##
+
+- 3 **Lancer la base de données:**
+
+  - 1. Dans une autre fenêtre du terminal rendez vous sur le dossier `aus-database` puis dans `postgresql`
+  ```bash
+    cd aus-database/postgresql
+  ```
+  - 2. Lancer avec docker 
+  ```bash
+  docker compose up -d
+  ```
+## Après cela: 
+- La base de données devrait être disponible sur le port `5010` et accessible via [http://localhost:5010](http://localhost:5010).
