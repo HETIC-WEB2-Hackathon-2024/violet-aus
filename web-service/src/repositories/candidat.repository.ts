@@ -12,6 +12,12 @@ class CandidatRepository extends HelperRepository {
     return result;
   }
 
+  async findByMail(email: string): Promise<any> {
+    const sql = `SELECT * FROM candidat WHERE email = $1`;
+    const result = await query(sql, [email]);
+    return result;
+  }
+
   async updateCandidatByEmail(candidateInfo: any): Promise<any> {
     const sql = `UPDATE candidat SET
     nom = $1,
