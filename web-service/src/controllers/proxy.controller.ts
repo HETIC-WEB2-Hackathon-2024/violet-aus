@@ -18,7 +18,7 @@ export const getLinkedInPage = async (req: Request, res: Response) => {
       if (!documentText.includes("<title>LinkedIn</title>") && enterpriseName != "N/A") {
         res.status(200).json({ message: "LinkedIn page retrieved successfully", url : fetchURL });
       } else {
-        res.status(500).json({ message: "Fetch error", error: "LinkedIn page does not exist" });
+        res.status(404).json({ message: "Fetch error", error: "LinkedIn page does not exist" });
       }
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error", error: "LinkedIn fetch error" });
