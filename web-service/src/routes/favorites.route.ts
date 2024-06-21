@@ -1,10 +1,12 @@
-import { Router } from "express";
 import {
-    getFavoritesByCandidatId
+    getFavoritesDataByCandidatId, removeFavoriteByFavoriteId
 } from "../controllers/favorites.controller";
+import { Router, Request, Response } from "express";
 
 const router = Router();
 
-router.get("/my-favorites", getFavoritesByCandidatId);
+
+router.get("/", getFavoritesDataByCandidatId);
+router.get("/:favorite_id", removeFavoriteByFavoriteId)
 
 export default router;
