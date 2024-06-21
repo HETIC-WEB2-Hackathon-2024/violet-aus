@@ -36,3 +36,19 @@ export async function authenticatedPost<T>(
   const data = await response.json();
   return data;
 }
+
+export async function authenticatedPatch<T>(
+  token: string,
+  path: string,
+  body: T
+) {
+  const url = await makeUrl(path);
+  const headers = makeHeaders(token);
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data;
+}
