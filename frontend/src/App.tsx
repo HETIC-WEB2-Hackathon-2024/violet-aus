@@ -9,7 +9,6 @@ import Dashboard from "./pages/Dashboard.tsx";
 import Settings from "./pages/Setting.tsx";
 import { Authenticated } from "./auth/Authenticated";
 import OffersPage from "./pages/OffersPage.tsx";
-import ProgressBar from "./components/ProgressBar.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +18,6 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
-      },
-      {
-        path: "progressBar",
-        element: <ProgressBar />,
       },
       // {
       //   path: "Offres",

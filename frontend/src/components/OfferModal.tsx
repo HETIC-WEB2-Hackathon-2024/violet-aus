@@ -18,7 +18,50 @@ interface OfferModalProps {
 }
 
 export function OfferModal({ idOffer, location }: OfferModalProps) {
-  const [openAlert, setOpenAlert] = useState<boolean>(true);
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
+  const [alreadyApplied, setAlreadyApplied] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkAlreadyApplied = () => {
+      const applicationList = localStorage.getItem("applicationList");
+      const initialAppList: string[] = applicationList
+        ? JSON.parse(applicationList)
+        : [];
+
+      const isAlreadyApplied = initialAppList.includes(idOffer.toString());
+
+      setAlreadyApplied(isAlreadyApplied);
+    };
+
+    checkAlreadyApplied();
+  }, [idOffer]);
+
+  const addIdOffer = (id: string) => {
+    const applicationList = localStorage.getItem("applicationList");
+    const initialAppList: string[] = applicationList
+      ? JSON.parse(applicationList)
+      : [];
+    setAlreadyApplied(true);
+
+    const updatedList = [...initialAppList, id];
+    localStorage.setItem("applicationList", JSON.stringify(updatedList));
+  };
+
+  const deleteIdOffer = (id: string) => {
+    const applicationList = localStorage.getItem("applicationList");
+    const initialAppList: string[] = applicationList
+      ? JSON.parse(applicationList)
+      : [];
+
+    const index = initialAppList.indexOf(id);
+    if (index !== -1) {
+      initialAppList.splice(index, 1);
+      localStorage.setItem("applicationList", JSON.stringify(initialAppList));
+
+      setAlreadyApplied(false);
+    }
+  };
+
   const [open, setOpen] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
   const [offer, setOffer] = useState();
@@ -63,15 +106,25 @@ export function OfferModal({ idOffer, location }: OfferModalProps) {
           </Typography>
         </DialogBody>
         <DialogFooter className="space-x-2">
-          {/* <Button
-            className="bg-primary-base_dark bg-none"
-            variant="gradient"
-            // color="purple"
-            onClick={() => console.log("ui")}
-          >
-            J'ai candidaté
-          </Button> */}
-          <ProgressBar openAlert={openAlert} setOpenAlert={setOpenAlert} />
+          {alreadyApplied ? (
+            <ProgressBar
+              openAlert={openAlert}
+              setOpenAlert={setOpenAlert}
+              addIdOffer={addIdOffer}
+              deleteIdOffer={deleteIdOffer}
+              idOffer={idOffer}
+              alreadyApplied={alreadyApplied}
+            />
+          ) : (
+            <ProgressBar
+              openAlert={openAlert}
+              setOpenAlert={setOpenAlert}
+              addIdOffer={addIdOffer}
+              deleteIdOffer={deleteIdOffer}
+              idOffer={idOffer}
+              alreadyApplied={alreadyApplied}
+            />
+          )}
         </DialogFooter>
       </Dialog>
     </>

@@ -4,17 +4,24 @@ import { useEffect, useState } from "react";
 interface ProgressBarProps {
   openAlert: boolean;
   setOpenAlert: (open: boolean) => void;
+  addIdOffer: (id: string) => void;
+  deleteIdOffer: (id: string) => void;
+  idOffer: number;
+  alreadyApplied: boolean;
 }
 
 export default function ProgressBar({
   openAlert,
   setOpenAlert,
+  addIdOffer,
+  deleteIdOffer,
+  idOffer,
+  alreadyApplied,
 }: ProgressBarProps) {
   const storedProgress = localStorage.getItem("progress");
   const initialProgress =
     storedProgress !== null ? parseInt(storedProgress) : 0;
   const [progress, setProgress] = useState(initialProgress);
-  // const [open, setOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("progress", progress.toString());
@@ -22,6 +29,10 @@ export default function ProgressBar({
 
   const increaseProgress = () => {
     setProgress((prev) => (prev < 100 ? prev + 10 : prev));
+  };
+
+  const decreaseProgress = () => {
+    setProgress((prev) => (prev > 0 ? prev - 10 : prev));
   };
 
   const getColor = (progress: number) => {
@@ -32,22 +43,30 @@ export default function ProgressBar({
   };
 
   const handleButtonClick = () => {
-    increaseProgress();
-    setOpenAlert(true);
-    setTimeout(() => {
-      setOpenAlert(false);
-    }, 2000);
+    if (alreadyApplied) {
+      decreaseProgress();
+      deleteIdOffer(idOffer.toString());
+      setOpenAlert(true);
+      setTimeout(() => {
+        setOpenAlert(false);
+      }, 2000);
+    } else {
+      increaseProgress();
+      addIdOffer(idOffer.toString());
+      setOpenAlert(true);
+      setTimeout(() => {
+        setOpenAlert(false);
+      }, 2000);
+    }
   };
-
   return (
     <div>
       <Button
-        disabled={progress >= 100}
         className="bg-primary-base_dark bg-none"
         variant="gradient"
         onClick={handleButtonClick}
       >
-        {progress >= 100 ? "Limite de candidature" : "Candidater"}
+        {alreadyApplied ? "Enlever ma candidature" : "Candidater"}
       </Button>
       <div className="absolute w-full inset-x-0 bottom-[-50px]">
         <Alert
@@ -61,7 +80,7 @@ export default function ProgressBar({
         >
           <style>{`.alertClass > :first-child { width : 100%; }`}</style>
           <Typography variant="h6" className="mb-4 w-full">
-            Candidature
+            Objectif de candidature
           </Typography>
           <Progress
             value={progress}
