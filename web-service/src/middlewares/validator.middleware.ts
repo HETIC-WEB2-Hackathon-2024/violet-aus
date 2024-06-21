@@ -6,6 +6,8 @@ function validator(dto: any) {
       return res.status(400).json({ error: 'Request body is missing' });
     }
 
+    console.log(req.body)
+
     for (let key in dto) {
       const { required, type } = dto[key];
 

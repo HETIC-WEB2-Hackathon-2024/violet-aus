@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { authenticatedGet, authenticatedPost } from "../auth/helper";
+import React, { useEffect, useState } from "react";
 import {
   Input,
   Button,
@@ -10,68 +9,49 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
+import { authenticatedGet, authenticatedPatch } from "../auth/helper";
+
+interface Candidate {
+  nom?: string,
+  prenom?: string,
+  telephone?: string,
+  pays?: string,
+  date_naissance: Date,
+  email: string
+}
+
+const defaultCandidate: Candidate = {
+  date_naissance: new Date(),
+  email: ''
+};
 
 function Settings() {
   const { getAccessTokenSilently } = useAuth0();
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<Candidate>();
   const [error, setError] = useState<string | null>(null);
-  const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  const [candidateInfo, setCandidateInfo] = useState({
-    lastname: data?.nom || "",
-    firstname: data?.prenom || "",
-    telephone: data?.telephone || "",
-    country: data?.pays || "",
-    birthday: dateOfBirth || "",
-    email: data?.email || "",
-  });
+  const [candidateInfo, setCandidateInfo] = useState<Candidate>(defaultCandidate);
 
   useEffect(() => {
-    async function callApi() {
+    (async () => {
       try {
         const token = await getAccessTokenSilently();
         const response = await authenticatedGet(token, "api/private/settings");
-
-        setData(response.user);
-
-        const dateObj = new Date(response.user.date_naissance);
-        if (!isNaN(dateObj.getTime())) {
-          const formatDate = (dateStr: any) => {
-            const date = new Date(dateStr);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, "0");
-            const day = String(date.getDate()).padStart(2, "0");
-            return `${year}-${month}-${day}`;
-          };
-          const formattedDate = formatDate(response.user.date_naissance);
-          setDateOfBirth(formattedDate);
-        } else {
-          throw new Error("Invalid date format");
-        }
-      } catch (error) {
-        setError(`Error from web service: ${error}`);
+        const dateNaissance = new Date(response.user.date_naissance);
+        setData({...response.user, date_naissance: dateNaissance});
+      } catch (error){
+        console.error(error)
       } finally {
         setLoading(false);
       }
-    }
-    callApi();
-  }, [getAccessTokenSilently]);
+    })();
+  }, []);
 
   useEffect(() => {
-    if (data && !isInitialized) {
-      setCandidateInfo({
-        lastname: data.nom || "",
-        firstname: data.prenom || "",
-        telephone: data.telephone || "",
-        country: data.pays || "",
-        birthday: dateOfBirth || "",
-        email: data.email || "",
-      });
-      setIsInitialized(true);
+    if (data) {
+      setCandidateInfo(data);
     }
-  }, [data, dateOfBirth, isInitialized]);
+  }, [data]);
 
   if (loading) {
     return (
@@ -80,7 +60,6 @@ function Settings() {
       </div>
     );
   }
-
   if (error) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -88,27 +67,46 @@ function Settings() {
       </div>
     );
   }
-
-  function handleChange(
-    field: any,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
     setCandidateInfo((prevState) => ({
       ...prevState,
-      [field]: event.target.value,
+      [name]: name === 'date_naissance' ? new Date(value) : value
     }));
-    if (field === "birthday") {
-      setDateOfBirth(event.target.value);
-    }
   }
-
   async function updateCandidate(event: any) {
     event.preventDefault();
     try {
       const token = await getAccessTokenSilently();
-      const response = await authenticatedPost(token, "api/private/settings", {
-        candidateInfo,
-      });
+
+      const body:any = {}
+      if (candidateInfo === data){
+        return
+      } else {
+        if (candidateInfo.pays !== data?.pays){
+          body['pays'] = candidateInfo.pays
+        }
+        if (candidateInfo.nom !== data?.nom){
+          body['nom'] = candidateInfo.nom
+        }
+        if (candidateInfo.prenom !== data?.prenom){
+          body['prenom'] = candidateInfo.prenom
+        }
+        if (candidateInfo.date_naissance !== data?.date_naissance){
+          const date = candidateInfo.date_naissance
+          date.setHours(0, 0, 0, 0)
+          date.setDate(candidateInfo.date_naissance.getDate() + 1)
+          body['date_naissance'] = date
+        }
+      }
+      
+      const response = await authenticatedPatch(token, "api/private/settings", {
+        ...body
+      })
+      console.log(response)
+
+      const dateNaissance = new Date(response.data.date_naissance);
+      setData({...response.data, date_naissance: dateNaissance});
     } catch (error) {
       setError(`Error from web service: ${error}`);
     } finally {
@@ -128,7 +126,8 @@ function Settings() {
               id="email"
               label="E-mail"
               variant="outlined"
-              value={candidateInfo.email}
+              name="email"
+              value={candidateInfo.email || ''}
               className="dark:bg-gray-dark dark:text-gray-lightest opacity-80 dark:opacity-60"
               readOnly
               crossOrigin=""
@@ -138,8 +137,9 @@ function Settings() {
               id="lastname"
               label="Nom"
               variant="outlined"
-              value={candidateInfo.lastname}
-              onChange={(event) => handleChange("lastname", event)}
+              name="nom"
+              value={candidateInfo.nom || ''}
+              onChange={(event) => handleChange(event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
               color="purple"
@@ -148,8 +148,9 @@ function Settings() {
               id="firstname"
               label="Prénom"
               variant="outlined"
-              value={candidateInfo.firstname}
-              onChange={(event) => handleChange("firstname", event)}
+              name="prenom"
+              value={candidateInfo.prenom || ''}
+              onChange={(event) => handleChange(event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
               color="purple"
@@ -158,8 +159,9 @@ function Settings() {
               id="telephone"
               label="Téléphone"
               variant="outlined"
-              value={candidateInfo.telephone}
-              onChange={(event) => handleChange("telephone", event)}
+              name="telephone"
+              value={candidateInfo.telephone || ''}
+              onChange={(event) => handleChange(event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
               color="purple"
@@ -167,9 +169,10 @@ function Settings() {
             <Input
               id="country"
               label="Pays"
+              name="pays"
               variant="outlined"
-              value={candidateInfo.country}
-              onChange={(event) => handleChange("country", event)}
+              value={candidateInfo.pays || ''}
+              onChange={(event) => handleChange(event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
               color="purple"
@@ -178,9 +181,10 @@ function Settings() {
               id="birthday"
               label="Date de naissance"
               type="date"
+              name="date_naissance"
               variant="outlined"
-              value={candidateInfo.birthday}
-              onChange={(event) => handleChange("birthday", event)}
+              value={candidateInfo.date_naissance.toLocaleDateString('en-CA', {year: 'numeric',month: '2-digit',day: '2-digit'}) || ''}
+              onChange={(event) => handleChange(event)}
               className="dark:bg-gray-dark dark:text-gray-lightest"
               crossOrigin=""
               color="purple"
@@ -200,5 +204,4 @@ function Settings() {
     </div>
   );
 }
-
 export default Settings;

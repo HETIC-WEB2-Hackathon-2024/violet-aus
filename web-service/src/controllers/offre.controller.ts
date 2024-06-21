@@ -116,7 +116,7 @@ export const updateById = async (req: Request, res: Response) => {
 
     res
       .status(200)
-      .json({ message: "Offre retrieved successfully", offre: offre });
+      .json({ message: "Offre update successfully", offre: offre });
   } catch (error: any) {
     res
       .status(500)
