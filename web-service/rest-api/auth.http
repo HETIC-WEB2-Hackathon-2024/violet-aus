@@ -43,6 +43,12 @@ Content-Type: application/json
 authorization: Bearer {{JWT}}
 
 ###
+# @name getLinkedinINfos
+GET {{protocol}}://{{host}}:{{portBack}}/api/private/proxy/linkedin/2
+Content-Type: application/json
+authorization: Bearer {{JWT}}
+
+###
 # @name getFilteredOffre
 GET {{protocol}}://{{host}}:{{portBack}}/api/private/offre?titre_emploi=Dev
 Content-Type: application/json
