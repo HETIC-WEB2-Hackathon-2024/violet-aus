@@ -25,7 +25,7 @@ class CandidatRepository extends HelperRepository {
       candidateInfo.firstname,
       candidateInfo.telephone,
       candidateInfo.country,
-      candidateInfo.birthday,
+      candidateInfo.date_naissance,
       candidateInfo.email,
     ]);
     return result;
