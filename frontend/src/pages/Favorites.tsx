@@ -49,33 +49,44 @@ export default function Favorites() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="bg-primary-light_white dark:bg-primary-light_dark p-4 text-center text-h4 font-bold rounded-lg">
-        <h4 className="text-gray-lightest">MA SÉLECTION</h4>
+      <div className="bg-gray-lightest dark:bg-gray-darkest border border-primary-light_white dark:border-primary-light_dark w-full p-4 rounded-lg">
+        <Typography
+          variant="h4"
+          className="text-primary-lightest text-center font-bold"
+        >
+          MA SÉLECTION
+        </Typography>
       </div>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-wrap gap-5">
         {offers?.map((offer: Offres, index) => (
-          <div key={index} className="border border-black">
-            <p className="text-gray-darkest dark:text-gray-lightest">
+          <div
+            key={index}
+            className="bg-gray-lightest dark:bg-gray-darkest border border-primary-light_white dark:border-primary-light_dark w-full p-4 rounded-lg"
+          >
+            <Typography
+              variant="h5"
+              className="text-gray-darkest dark:text-gray-lightest mb-2"
+            >
               {offer.titre_emploi}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
+            </Typography>
+            <Typography className="text-gray-darkest dark:text-gray-lightest mb-2">
               {offer.entreprise}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
+            </Typography>
+            <Typography className="text-gray-darkest dark:text-gray-lightest mb-2">
               {offer.lieu}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
+            </Typography>
+            <Typography className="text-gray-darkest dark:text-gray-lightest mb-2">
               {offer.contrat}
-            </p>
-            <p className="text-gray-darkest dark:text-gray-lightest">
+            </Typography>
+            <Typography className="text-gray-darkest dark:text-gray-lightest mb-4">
               {offer.description_courte}
-            </p>
+            </Typography>
             <Button
               onClick={() => RemoveFavorite(offer.id)}
-              className="bg-transparent soffer.idhadow-none hover:shadow-none flex items-center gap-3 p-2"
+              className="bg-transparent shadow-none hover:shadow-none flex items-center gap-3 p-2"
             >
-              <img src="/star_filled.svg" alt="Logo" className="w-6 " />
-              <Typography className="text-gray-darkest dark:text-gray-lightest font-normal normal-case">
+              <img src="/star_filled.svg" alt="Logo" className="w-6" />
+              <Typography className="text-gray-darkest dark:text-gray-lightest font-normal">
                 Retirer
               </Typography>
             </Button>
