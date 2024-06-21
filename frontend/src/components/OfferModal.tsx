@@ -89,7 +89,7 @@ export function OfferModal({ idOffer, location }: OfferModalProps) {
   return offer ? (
     <>
       <Button onClick={handleOpen} className="bg-primary-base_dark bg-none">
-        Voir Plus
+        En savoir plus
       </Button>
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader className="font-bold">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SimpleCard } from "../components/SimpleCard";
+import { ButtonDefault } from "../components/ButtonDefault";
 
 interface Offres {
   id: number;
@@ -10,13 +11,18 @@ interface Offres {
 }
 const Home = () => {
   const [offers, setOffers] = useState<Offres[] | []>([]);
+  const [allOffers, setAllOffers] = useState([]);
+  const [count, setCount] = useState(15);
 
   useEffect(() => {
     const callApis = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/public/offre");
         const data = await response.json();
-        setOffers(data.offres);
+        const firstArray = data.offres.slice(0, count);
+        const firstEntireArray = data.offres;
+        setAllOffers(firstEntireArray);
+        setOffers(firstArray);
         return data;
       } catch (error) {
         console.log(error);
@@ -24,6 +30,14 @@ const Home = () => {
     };
     callApis();
   }, []);
+
+  function showMore() {
+    setCount(() => {
+      const newCount = count + 15;
+      setOffers(allOffers.slice(0, newCount));
+      return newCount;
+    });
+  }
 
   return (
     <>
@@ -45,6 +59,13 @@ const Home = () => {
             />
           ))}
         </div>
+      </div>
+      <div className="flex justify-center mt-6 mb-2">
+        <ButtonDefault
+          className="w-auto rounded-none bg-primary-base_dark"
+          textContent={"Voir plus"}
+          onClick={() => showMore()}
+        />
       </div>
     </>
   );
